@@ -1,7 +1,7 @@
 // FILE: main.js
 
 import { createApp } from 'vue'
-import { Quasar } from 'quasar'
+import { Quasar,BottomSheet } from 'quasar'
 
 // Import icon libraries
 import '@quasar/extras/roboto-font-latin-ext/roboto-font-latin-ext.css'
@@ -23,7 +23,7 @@ const myApp = createApp(App)
 
 myApp.use(Quasar, {
   plugins: {
-
+    BottomSheet
 
   }, // import Quasar plugins and add here
 })

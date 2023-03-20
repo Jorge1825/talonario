@@ -10,22 +10,15 @@ import Boletas from './components/Boletas.vue'
 import DialogColor from './components/Dialogs/DialogColorPicker.vue'
 import DialogEdit from './components/Dialogs/DialogEdit.vue'
 import DialogReservarBoleta from './components/Dialogs/DialogReserva.vue'
-
 import ListarBoletas from './components/Dialogs/ListBoletas.vue'
-
-
 
 import { ref, computed } from 'vue'
 import { format, useQuasar } from 'quasar'
 
 
-
-const multiSelect = ref(false)
-
-
-//Tabla 
+//Dialog list boletas
+const listBolestasDialog = ref(false)
 const dataBoletas = ref([
-
   {
     id: "1223sdgfsdf",
     name: "Andres Arnulfo",
@@ -42,7 +35,6 @@ const dataBoletas = ref([
       }
     ]
   },
-
   {
     id: "1223sdgfsf",
     name: "Jorge Luis",
@@ -118,6 +110,57 @@ const dataBoletas = ref([
 
 
 
+
+//botones de acciones
+let buttonData = [
+  {
+    value: 'Listar tus Boletas',
+    icon: "las la-filter",
+    click: () => {
+      listBolestasDialog.value = true
+      console.log('Listar tus boletas')
+    }
+  },
+  {
+    value: 'Personalizar Talonario Web',
+    icon: "las la-magic",
+    click: () => {
+      displayColorDialog.value = true
+      console.log('Personalizar Talonario Web')
+      //validar si colorUser tiene datos
+      console.log(Object.keys(colorUser.value).length)
+    }
+
+  },
+  {
+    value: 'Generar Archivo de Datos',
+    icon: "las la-download",
+    click: () => {
+      generateFileDialog.value = true
+      console.log('Generar Archivo De Datos')
+    }
+  }
+]
+
+
+
+//Dialog Editar
+let showDialogEdit = ref(false)
+
+function openDialog(activar) {
+  showDialogEdit.value = activar
+}
+
+function saveData(data,value){
+  console.log(data)
+  showDialogEdit.value = value
+  cardData.value[0].value = data[0]
+  cardData.value[1].value = data[1]
+  cardData.value[2].value = data[2]
+  cardData.value[3].value = data[3]
+}
+
+
 let cardData = ref([
   {
     label: 'Premio',
@@ -143,76 +186,54 @@ let cardData = ref([
 )
 
 
-let buttonData = [
-  {
-    value: 'Listar tus Boletas',
-    icon: "las la-filter",
-    click: () => {
-      listBolestasDialog.value = true
-      console.log('Listar tus boletas')
-    }
+//Dialog color
+const displayColorDialog = ref(false)
+const colorDefault = ref({
+  primary: '#1976D2',
+  text_light: '#FFFFFF',
+  text_dark: '#000000',
+  colorFondo: '#FFFFFF',
+  color_title_talonario:{
+    color1: '#000000',
+    color2: '#000000',
+    color3: '#000000',
   },
-  {
-    value: 'Personalizar Talonario Web',
-    icon: "las la-magic",
-    click: () => {
-      displayColorDialog.value = true
-      console.log('Personalizar Talonario Web')
-    }
+
+  colorBalota:{
+    select: '#000000',
+    pagada: '#000000',
+    apartada: '#000000',
+    ganadora: '#000000',
 
   },
-  {
-    value: 'Generar Archivo de Datos',
-    icon: "las la-download",
-    click: () => {
-      generateFileDialog.value = true
-      console.log('Generar Archivo De Datos')
-    }
-  }
-]
+
+  btnCircle: '#000000',
+  btnSpecial: '#000000',
+  colorcard: '#000000',
 
 
+})
 
-/* En editar 
-Modal con : 
-- MODIFICAR EL VALOR 
-- MODIFICAR EL ARTICULO 
-- MODIFICAR LOTERIA "SELECT"
-- MODIFICAR FECHA DE SORTEO 
+const colorUser = ref({
 
-*/
-let showDialog = ref(false)
-
-function openDialog(activar) {
-  showDialog.value = activar
-}
-
-function saveData(data,value){
-  console.log(data)
-  showDialog.value = value
-  cardData.value[0].value = data[0]
-  cardData.value[1].value = data[1]
-  cardData.value[2].value = data[2]
-  cardData.value[3].value = data[3]
-}
+})
 
 
-
-/* LISTAR BOLETAS 
-USAR UN https://quasar.dev/vue-components/table#example--grid-style
-*/
-
-
-
-
-
-const selectedButtons = ref([])
+//dialog reservar
 const reservationName = ref('')
-const listBolestasDialog = ref(false)
-const generateFileDialog = ref(false)
 const dialogReservar = ref(false)
 
 
+//generar archivo
+const generateFileDialog = ref(false)
+
+
+
+const multiSelect = ref(false)
+const selectedButtons = ref([])
+
+
+// Función que genera los botones y sus filas
 const buttons = computed(() => {
   const buttonsSimples = []
   for (let i = 0; i <= 99; i++) {
@@ -231,13 +252,13 @@ const buttons = computed(() => {
   return filas
 })
 
-// Dividir los botones en filas de tamaño 10
 
-
+// Función que comprueba si un botón está seleccionado
 const isSelected = (button) => {
   console.log(selectedButtons.value.includes(button))
   return selectedButtons.value.includes(button)
 }
+
 
 const selectButton = (button) => {
   if (!multiSelect.value) {
@@ -258,6 +279,7 @@ const selectButton = (button) => {
 }
 
 
+// Función para reservar las boletas
 const reserveButtons = () => {
   // Aquí puedes hacer lo que necesites con los botones reservados y el nombre de la reserva
   console.log('Botones reservados:', selectedButtons.value)
@@ -279,13 +301,9 @@ const reserveButtons = () => {
     <q-layout view="lHh lpr lFf">
 
       <HeaderPage />
-      
 
-      
-
- 
-      <q-page-container>
-        <q-page class="row q-pt-sm q-pq-none q-ma-none colorFondo justify-center flex">
+      <q-page-container >
+        <q-page class="row q-pq-none q-ma-none colorFondo justify-center flex">
 
           <div class="col-12 q-mt-sm ">
             <div class="row full-height">
@@ -300,27 +318,27 @@ const reserveButtons = () => {
               </div>
               </div>
 
-              <div class="col-md-6 col-8">
+              <div class="col-md-6 col-8 ">
                
                 <div class="row ">
                   <div class="col-12 text-center text-h5 text-weight-bolder textBoletas">
                     Toca las boletas
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-6 justify-start flex">
+                <div class="row justify-center flex">
+                  <div class="col-5 justify-start flex">
                     
-                    <q-btn color="primary" icon="person_add" label="Adquirir" @click="dialogReservar = true" />
+                    <q-btn icon="person_add" label="Adquirir" @click="dialogReservar = true"  :style="{'background-color': colorUser.primary || colorDefault.primary}" />
                   </div>
-                  <div class="col-6 justify-end flex ">
+                  <div class="col-5 justify-end flex ">
                     <div class=" q-pr-md q-pl-sm rounded-borders" style="background-color: #eef6ff;">
-                      <q-checkbox keep-color color="blue" v-model="multiSelect" label="Selección múltiple" />
+                      <q-checkbox keep-color color="blue" v-model="multiSelect" label="Selección múltiple" @click="multiSelect === false ? selectedButtons = [] : ''" />
                     </div>
                   </div>
 
                 </div>
-                <div class="row justify-center flex ">
-                  <div class="col-12 full-width">
+                <div class="row justify-center " >
+                  <div class="col-12 full-width q-pt-sm">
                     <Boletas :buttons="buttons" :isSelected="isSelected" :selectButton="selectButton" />
 
                   </div>
@@ -329,8 +347,8 @@ const reserveButtons = () => {
               </div>
            
               <div class="col-md-3 col-4 flex items-center justify-center">
-                <div class=" container-card full-width row justify-center">
-                <div class="full-width">
+                <div class=" container-card full-width row justify-center items-center ">
+                <div class="full-width ">
                   <div class="full-width">
                   <div class="text-center text-uppercase text-h6 q-py-sm">Acciones</div>
               
@@ -352,7 +370,7 @@ const reserveButtons = () => {
 
 
 
-      <q-dialog v-model="showDialog">
+      <q-dialog v-model="showDialogEdit">
         <DialogEdit :cardData="cardData" :saveData="saveData" />  
       </q-dialog>
 
@@ -363,7 +381,7 @@ const reserveButtons = () => {
 
 
       <q-dialog v-model="displayColorDialog" persistent>
-          <DialogColor />
+          <DialogColor :actualColor="actualColor" :saveColor="saveColor" />
       </q-dialog>
 
 
@@ -371,8 +389,6 @@ const reserveButtons = () => {
           <DialogReservarBoleta />
       </q-dialog>
       
-
-
 
       <FooterPage />
 
@@ -382,16 +398,20 @@ const reserveButtons = () => {
 
 
 <style scoped>
+
+
+
 .textBoletas {
   color: #007B84;
   text-shadow: 1px 1px 2px #738dff;
 }
 .container-card{
-  height: 60%;
+  height: auto;
   background-color: rgba(197, 197, 197, 0.329);
   border-radius: 20px;
   justify-content: center;
   align-items: center;
+  padding: 20px 0 20px 0;
 
 
 }

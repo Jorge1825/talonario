@@ -106,7 +106,7 @@ const columns = [
 .q-table__top,
   thead tr:first-child th{
     /* bg color is important for th; just specify one */
-    background-color: rgb(4, 155, 255);
+    background-color: #1976D2;
     color: rgb(255, 255, 255);
   }
 

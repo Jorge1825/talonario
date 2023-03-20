@@ -98,7 +98,7 @@ const guardarColor = () => {
           </div>
 
           <div class="col-12 justify-center flex">
-            <q-btn color="primary" dense glossy label="Colores por defecto" type="button" />
+            <q-btn color="red-8" dense glossy label="Colores por defecto" type="button" />
           </div>
 
         </div>

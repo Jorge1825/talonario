@@ -14,9 +14,9 @@ const displayColorDialog = ref(false)
 
 
 <template>
-    <q-card-section class="row  d-flex">
+    <q-card-section class="row  d-flex q-pa-none" >
                         <div class="col-12 ">
-                          <div class="row  boxPelotas justify-center q-py-xs">
+                          <div class="row  boxPelotas justify-center q-mx-lg">
                             <template v-for="(fila,index) in buttons" :key="index">
                               <div class="col-12 justify-center flex">
                                   <q-btn  v-for="button in fila" :key="button"  class="btnBalotas"
@@ -45,7 +45,7 @@ const displayColorDialog = ref(false)
 
 .boxPelotas {
 
-max-height: calc(100vh/1.5);
+max-height: calc(100vh/1.48);
 width: auto;
 overflow: auto;
 /*Estilos estándar experimentales (Principalmente Firefox)*/
@@ -62,7 +62,7 @@ background-color: #ecf5ff;
 }
 
 .boxPelotas::-webkit-scrollbar:vertical {
-width: 7px;
+width: 6px;
 }
 
 .boxPelotas::-webkit-scrollbar-button:increment,
@@ -91,8 +91,8 @@ border-radius: 10px;
   color: rgb(0, 0, 0) !important;
   border: 1px solid rgb(255, 255, 255) !important;
   width: 3rem;
-  height: 2rem;
-  margin: 0.1rem 0.2rem;
+  height: 1rem !important;
+  margin: 0.08rem 0.3rem;
 
 }
 
