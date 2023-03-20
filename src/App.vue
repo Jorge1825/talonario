@@ -1,87 +1,273 @@
+
+
 <script setup>
-import { ref,computed } from 'vue'
-import { useQuasar } from 'quasar'
+//importar componenetes 
+import HeaderPage from './components/HeaderAndFooter/HeaderPage.vue'
+import FooterPage from './components/HeaderAndFooter/FooterPage.vue'
+import OpcionesBtn from './components/OpcionesBtn.vue'
+import InfoTolanario from './components/InfoTolanario.vue'
+import Boletas from './components/Boletas.vue'
+import DialogColor from './components/Dialogs/DialogColorPicker.vue'
+import DialogEdit from './components/Dialogs/DialogEdit.vue'
+import DialogReservarBoleta from './components/Dialogs/DialogReserva.vue'
+
+import ListarBoletas from './components/Dialogs/ListBoletas.vue'
+
+
+
+import { ref, computed } from 'vue'
+import { format, useQuasar } from 'quasar'
+
 
 
 const multiSelect = ref(false)
 
-let cardData = [
+
+//Tabla 
+const dataBoletas = ref([
+
   {
-    value: 200000,
-    icon: "🏆"
+    id: "1223sdgfsdf",
+    name: "Andres Arnulfo",
+    telefono: "300 000 0000",
+    direcion: "Calle 1 # 2 - 3",
+    boletas: [
+      {
+        numero: "1",
+        estado: "0"
+      },
+      {
+        numero: "2",
+        estado: "1"
+      }
+    ]
+  },
+
+  {
+    id: "1223sdgfsf",
+    name: "Jorge Luis",
+    telefono: "300 000 0001",
+    direcion: "Calle 1 # 2 - 3",
+    boletas: [
+      {
+        numero: "6",
+        estado: "0"
+      },
+      {
+        numero: "8",
+        estado: "1"
+      }
+    ]
   },
   {
-    value: 5000,
+    id: "1223sdgfsf",
+    name: "Michael Stiven",
+    telefono: "300 000 0200",
+    direcion: "Calle 1 # 1 - 1",
+    boletas: [
+      {
+        numero: "13",
+        estado: "0"
+      },
+
+    ]
+  },
+  {
+    id: "1223sdgfsf",
+    name: "Michael Stiven",
+    telefono: "300 000 0200",
+    direcion: "Calle 1 # 1 - 1",
+    boletas: [
+      {
+        numero: "13",
+        estado: "0"
+      },
+
+    ]
+  },
+  {
+    id: "1223sdgfsf",
+    name: "Michael Stiven",
+    telefono: "300 000 0200",
+    direcion: "Calle 1 # 1 - 1",
+    boletas: [
+      {
+        numero: "13",
+        estado: "0"
+      },
+
+    ]
+  },
+  {
+    id: "1223sdgfsf",
+    name: "Michael Stiven",
+    telefono: "300 000 0200",
+    direcion: "Calle 1 # 1 - 1",
+    boletas: [
+      {
+        numero: "13",
+        estado: "0"
+      },
+
+    ]
+  },
+
+])
+
+
+
+
+
+let cardData = ref([
+  {
+    label: 'Premio',
+    value: '20000',
+    icon: "🏆",
+  },
+  {
+    label: 'Valor Boleta',
+    value: 500,
     icon: "$"
   },
   {
-    value: 'Loteria de Boyaca-Sabado',
-    icon: "🏦"
+    label: 'Loteria',
+    value: 'Loteria Nueva',
+    icon: "🏦",
   },
   {
-    value: '5/5/2023',
-    icon: "🗓️"
+    label: 'Fecha de Sorteo',
+    value: '2023-02-28',
+    icon: "🗓️",
   }
 ]
+)
+
 
 let buttonData = [
   {
-    value: 'Listar Tus Voletas',
-    icon: "las la-filter"
+    value: 'Listar tus Boletas',
+    icon: "las la-filter",
+    click: () => {
+      listBolestasDialog.value = true
+      console.log('Listar tus boletas')
+    }
   },
   {
     value: 'Personalizar Talonario Web',
-    icon: "las la-magic"
+    icon: "las la-magic",
+    click: () => {
+      displayColorDialog.value = true
+      console.log('Personalizar Talonario Web')
+    }
 
   },
   {
-    value: 'Generar Archivo De Datos',
-    icon: "las la-download"
+    value: 'Generar Archivo de Datos',
+    icon: "las la-download",
+    click: () => {
+      generateFileDialog.value = true
+      console.log('Generar Archivo De Datos')
+    }
   }
 ]
+
+
+
+/* En editar 
+Modal con : 
+- MODIFICAR EL VALOR 
+- MODIFICAR EL ARTICULO 
+- MODIFICAR LOTERIA "SELECT"
+- MODIFICAR FECHA DE SORTEO 
+
+*/
+let showDialog = ref(false)
+
+function openDialog(activar) {
+  showDialog.value = activar
+}
+
+function saveData(data,value){
+  console.log(data)
+  showDialog.value = value
+  cardData.value[0].value = data[0]
+  cardData.value[1].value = data[1]
+  cardData.value[2].value = data[2]
+  cardData.value[3].value = data[3]
+}
+
+
+
+/* LISTAR BOLETAS 
+USAR UN https://quasar.dev/vue-components/table#example--grid-style
+*/
+
 
 
 
 
 const selectedButtons = ref([])
-    const reservationName = ref('')
-    const showReservationDialog = ref(false)
-
-    const buttons = computed(() => {
-      const buttons = []
-      for (let i = 0; i <= 100; i++) {
-        buttons.push(i.toString())
-      }
-      return buttons
-    })
+const reservationName = ref('')
+const listBolestasDialog = ref(false)
+const generateFileDialog = ref(false)
+const dialogReservar = ref(false)
 
 
-    const isSelected = (button) => {
-      return selectedButtons.value.includes(button)
+const buttons = computed(() => {
+  const buttonsSimples = []
+  for (let i = 0; i <= 99; i++) {
+    buttonsSimples.push(i.toString())
+    console.log(buttonsSimples)
+  }
+
+  const filas = [];
+    for (let i = 0; i < buttonsSimples.length; i += 10) {
+      filas.push(buttonsSimples.slice(i, i + 10));
+      console.log(filas)
     }
 
-    const selectButton = (button) => {
-      if (!multiSelect.value) {
-        selectedButtons.value = [button]
-      } else if (isSelected(button)) {
-        selectedButtons.value = selectedButtons.value.filter(b => b !== button)
-      } else {
-        selectedButtons.value.push(button)
-      }
-    }
+  console.log(buttonsSimples)
+
+  return filas
+})
+
+// Dividir los botones en filas de tamaño 10
 
 
+const isSelected = (button) => {
+  console.log(selectedButtons.value.includes(button))
+  return selectedButtons.value.includes(button)
+}
 
-    const reserveButtons = () => {
-      // Aquí puedes hacer lo que necesites con los botones reservados y el nombre de la reserva
-      console.log('Botones reservados:', selectedButtons.value)
-      console.log('Nombre de la reserva:', reservationName.value)
+const selectButton = (button) => {
+  if (!multiSelect.value) {
+    //añaadir el boton a la lista de botones seleccionados si no está seleccionado el modo multiselección
+    selectedButtons.value = [button]
+    console.log(selectedButtons.value)
 
-      // Reiniciamos los valores
-      selectedButtons.value = []
-      reservationName.value = ''
-      showReservationDialog.value = false
-    }
+    dialogReservar.value = true
+
+  } else if (isSelected(button)) {
+    // Eliminamos el botón de la lista de botones seleccionados
+    selectedButtons.value = selectedButtons.value.filter(b => b !== button)
+
+  } else {
+    // Añadimos el botón a la lista de botones seleccionados
+    selectedButtons.value.push(button)
+  }
+}
+
+
+const reserveButtons = () => {
+  // Aquí puedes hacer lo que necesites con los botones reservados y el nombre de la reserva
+  console.log('Botones reservados:', selectedButtons.value)
+  console.log('Nombre de la reserva:', reservationName.value)
+
+  // Reiniciamos los valores
+  selectedButtons.value = []
+  reservationName.value = ''
+  showReservationDialog.value = false
+}
 
 
 
@@ -91,132 +277,71 @@ const selectedButtons = ref([])
 <template>
   <div>
     <q-layout view="lHh lpr lFf">
-      <!-- Header -->
-      <q-header elevated>
-        <q-toolbar>
-          <q-btn flat round dense icon="home" class="q-mr-sm" />
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
 
-          <q-toolbar-title>Quasar Framework</q-toolbar-title>
+      <HeaderPage />
+      
 
-          <q-btn flat round dense icon="whatshot" />
-        </q-toolbar>
-      </q-header>
+      
 
-      <q-footer elevated>
-        <q-toolbar>
-          <q-toolbar-title>Footer</q-toolbar-title>
-        </q-toolbar>
-      </q-footer>
-
-
-
-      <!-- Contenido de la pagina -->
+ 
       <q-page-container>
-        <q-page class="row q-pt-sm q-pq-none q-ma-none">
+        <q-page class="row q-pt-sm q-pq-none q-ma-none colorFondo justify-center flex">
 
-          <div class="col-12">
+          <div class="col-12 q-mt-sm ">
+            <div class="row full-height">
+              <div class="col-md-3 col-12 flex items-center justify-center">
+                <div class=" container-card full-width row justify-center">
+                <div class="full-width">
+                  <div class="text-center text-uppercase text-h6 q-py-sm">Información</div>
+                
+                  <InfoTolanario :cardData="cardData" :openDialog="openDialog" />
 
-            <!-- Arnulfo -->
-            <div class="row justify-around">
-              <div class="col-5">
-                <q-card class="my-card">
-                  <q-card-section class="" style="padding: 3px;">
-                    <q-list  v-for="element in cardData" :key="element">
-                      <q-item class=" q-pa-none q-ma-none item" dense>
-                        <q-item-section avatar class="bg-blue" >
-                          <q-icon :name="element.icon" />
-                        </q-item-section>
-
-                        <q-item-section class="bg-red ">
-                          <p v-text="element.value"></p>
-                        </q-item-section>
-                      </q-item>
-
-                    </q-list>
-                    <q-btn dense label="Editar" size="sm" color="primary"  push>
-                      <q-icon name="edit" class="q-pl-xs" size="10px" />
-                    </q-btn>
-                  </q-card-section>
-                </q-card>
               </div>
-              <div class="col-4">
-                <q-card class="my-card">
-                  <q-card-section>
-                    <div class="row">
-                      <div class="col-10">
-                        <div class="row">
-                          <q-btn label="Estado" color="primary" rounded />
-                        </div>
-                        
-                        <template v-for="element in buttonData" :key="element">
-                          <q-btn color="primary" rounded class="">
-                            <div class="row icono">
-                              <div class="col-3 bg-red">
-                                <q-icon :name="element.icon" />
-                              </div>
-                              <div class="col-9">
-                                {{ element.value }}
-                              </div>
-                            </div>
-
-                            <q-tooltip v-text="element.value" />
-                          </q-btn>
-                        </template>
-                      </div>
-                    </div>
-                    
-                  </q-card-section>
-                </q-card>
               </div>
-            </div>
+              </div>
 
-
-
-
-
-            <!-- Jorge -->
-            <div class="row justify-center flex q-mt-lg">
-              <div class="col-8">
+              <div class="col-md-6 col-8">
+               
                 <div class="row ">
-                  <div class="col-12 text-center text-subtitle1 text-weight-bolder">
+                  <div class="col-12 text-center text-h5 text-weight-bolder textBoletas">
                     Toca las boletas
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 justify-end flex q-my-sm">
-                    <div class="bg-blue-2 q-pr-md q-pl-sm rounded-borders">
-                      <q-checkbox keep-color color="orange" v-model="multiSelect" label="Selección múltiple" />
+                  <div class="col-6 justify-start flex">
+                    
+                    <q-btn color="primary" icon="person_add" label="Adquirir" @click="dialogReservar = true" />
+                  </div>
+                  <div class="col-6 justify-end flex ">
+                    <div class=" q-pr-md q-pl-sm rounded-borders" style="background-color: #eef6ff;">
+                      <q-checkbox keep-color color="blue" v-model="multiSelect" label="Selección múltiple" />
                     </div>
                   </div>
+
                 </div>
                 <div class="row justify-center flex ">
-                  <div class="col-10 ">
-                    <q-card-section class="d-flex ">
-                      <div class="row ">
-                        <div class="col-12 ">
-                          <div class="flex justify-center container-botones q-py-xs">
-                            <q-btn size="12px" v-for="button in buttons" :key="button" class="q-mr-xs q-mb-xs btnBalotas" :label="button > 9 ? button : '0' + button"  round @click="selectButton(button)"  :class="isSelected(button) ? 'btn-active' : ''">
-                              <q-badge v-if="isSelected(button)" color="green" dense floating rounded >
-                                <q-icon name="check" size="10px" />
-                              </q-badge>
-                            </q-btn>
-                          </div>
-                        </div>
-                      </div>
-                    </q-card-section>
+                  <div class="col-12 full-width">
+                    <Boletas :buttons="buttons" :isSelected="isSelected" :selectButton="selectButton" />
 
                   </div>
-
-
 
                 </div>
               </div>
+           
+              <div class="col-md-3 col-4 flex items-center justify-center">
+                <div class=" container-card full-width row justify-center">
+                <div class="full-width">
+                  <div class="full-width">
+                  <div class="text-center text-uppercase text-h6 q-py-sm">Acciones</div>
+              
+
+              </div>
+                <OpcionesBtn :buttonData="buttonData" />
+                </div>
+                </div>
+
+              </div>
             </div>
-
-
 
           </div>
 
@@ -225,82 +350,31 @@ const selectedButtons = ref([])
       </q-page-container>
 
 
-      <q-dialog v-model="showReservationDialog">
-      <q-card>
-        <q-card-section>
-          <q-input v-model="reservationName" label="Nombre de la reserva" />
-        </q-card-section>
-        <q-card-actions >
-          <q-btn color="primary" label="Reservar" @click="reserveButtons" />
-          <q-btn color="negative" label="Cancelar" @click="showReservationDialog = false" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
 
 
+      <q-dialog v-model="showDialog">
+        <DialogEdit :cardData="cardData" :saveData="saveData" />  
+      </q-dialog>
 
-      <!-- Dialogo -->
-      <q-dialog v-model="card">
-      <q-card class="my-card">
-        <q-card-section>
+ 
+      <q-dialog v-model="listBolestasDialog">
+          <ListarBoletas :dataBoletas="dataBoletas" />
+      </q-dialog>
 
 
-          <div class="row no-wrap items-center">
-            <div class="col-12 text-center text-h6 ellipsis">
-              Reservar boleta
-            </div>
-          </div>
+      <q-dialog v-model="displayColorDialog" persistent>
+          <DialogColor />
+      </q-dialog>
 
-        </q-card-section>
 
-        <q-card-section class="q-pt-none">
-            <q-input bottom-slots v-model="text" label="Label"  :dense="dense">
-              <template v-slot:before>
-                <q-avatar>
-                  <img src="https://cdn.quasar.dev/img/avatar5.jpg">
-                </q-avatar>
-              </template>
-
-              <template v-slot:append>
-                <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-              </template>
-
-              <template v-slot:hint>
-                Field hint
-              </template>
-
+      <q-dialog v-model="dialogReservar" position="bottom">
+          <DialogReservarBoleta />
+      </q-dialog>
       
-          </q-input>
 
 
 
-          <q-input filled bottom-slots v-model="text" label="Label" counter :dense="dense">
-            <template v-slot:prepend>
-              <q-avatar>
-                  <img src="https://cdn.quasar.dev/img/avatar5.jpg">
-              </q-avatar>
-            </template>
-
-          </q-input>
-          <q-input
-            filled
-            v-model="phone"
-            label="Phone"
-            mask="(###) ### - ####"
-          />
-          <q-input v-model="date" filled type="date" hint="Native date" />
-        </q-card-section>
-
-        <q-separator />
-
-        <q-card-actions align="right">
-          <q-btn v-close-popup flat color="primary" label="Cerrar" />
-          <q-btn v-close-popup flat color="primary" label="Guardar" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-
-
+      <FooterPage />
 
     </q-layout>
   </div>
@@ -308,39 +382,40 @@ const selectedButtons = ref([])
 
 
 <style scoped>
-.item{
-  border: 1px solid #ccc;
+.textBoletas {
+  color: #007B84;
+  text-shadow: 1px 1px 2px #738dff;
 }
-.icono{
-  display: flex;
+.container-card{
+  height: 60%;
+  background-color: rgba(197, 197, 197, 0.329);
+  border-radius: 20px;
   justify-content: center;
   align-items: center;
+
+
 }
-.container-botones{
-  background: #e4e4e4;
+
+.colorFondo {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(213, 248, 255, 1) 100%);
+}
+
+.infoText {
+  align-items: center;
+  justify-content: right;
+  background-color: #eef6ff;
+
+}
+
+
+.container-botones {
+  background: #ffffff;
   border-radius: 10px;
   box-shadow: 0px 2px 4px 0.1px rgba(0, 0, 0, 0.363);
-}
-.btnBalotas{
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgb(216, 240, 255) 12%,rgba(220, 241, 255, 0.753) 85%, rgba(232,234,235,1) 100%);
-  color: rgb(255, 93, 93) !important;
-
-
 
 }
-.btnBalotas:hover{
-  transition: 0.3s;
-  animation: 0.3s;
-  background: rgb(205, 245, 255) !important;
-  color: rgb(255, 93, 93) !important;
-  animation: girar 2s infinite;
-}
-.btn-active{
-  background: blue !important;
-  color: rgb(255, 93, 93) !important;
-}
 
 
 
-
-</style>
+</style> 

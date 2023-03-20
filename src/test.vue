@@ -1,86 +1,113 @@
 <template>
-  <q-card>
-    <q-card-section>
-      <div class="row q-gutter-x-md">
-        <div class="col-auto">
-          <q-checkbox v-model="multiSelect" label="Selección múltiple" />
-        </div>
-        <div class="col">
-
-          <q-btn v-show="selectedButtons.length > 1" color="primary" label="Reservar"  @click="showReservationDialog = true" />
-        </div>
-      </div>
-    </q-card-section>
-    <q-card-section class="d-flex">
-  <div class="row">
-    <div class="col-12">
-      <div class="d-flex flex-wrap justify-center">
-        <q-btn v-for="button in buttons" :key="button" class="q-mr-xs q-mb-xs" :label="button > 9 ? button : '0' + button"  round @click="selectButton(button)"  :color="isSelected(button) ? 'primary' : 'orange'">
-          <q-badge v-if="isSelected(button)" color="green" dense floating rounded >
-            <q-icon name="check" size="10px" />
-          </q-badge>
-        </q-btn>
-      </div>
-    </div>
+  <div class="q-pa-md">
+    <q-table
+      grid
+      title="Treats"
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+      :filter="filter"
+      hide-header
+    >
+      <template v-slot:top-right>
+        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </template>
+    </q-table>
   </div>
-</q-card-section>
-    <q-dialog v-model="showReservationDialog">
-      <q-card>
-        <q-card-section>
-          <q-input v-model="reservationName" label="Nombre de la reserva" />
-        </q-card-section>
-        <q-card-actions >
-          <q-btn color="primary" label="Reservar" @click="reserveButtons" />
-          <q-btn color="negative" label="Cancelar" @click="showReservationDialog = false" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-  </q-card>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue'
+<script>
+import { ref } from 'vue'
 
+const columns = [
+  {
+    name: 'desc',
+    required: true,
+    label: 'Dessert (100g serving)',
+    align: 'left',
+    field: row => row.name,
+    format: val => `${val}`,
+    sortable: true
+  },
+  { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
+  { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
+  { name: 'carbs', label: 'Carbs (g)', field: 'carbs' }
+]
 
+const rows = [
+  {
+    name: 'Frozen Yogurt',
+    calories: 159,
+    fat: 6.0,
+    carbs: 24
+  },
+  {
+    name: 'Ice cream sandwich',
+    calories: 237,
+    fat: 9.0,
+    carbs: 37
+  },
+  {
+    name: 'Eclair',
+    calories: 262,
+    fat: 16.0,
+    carbs: 23
+  },
+  {
+    name: 'Cupcake',
+    calories: 305,
+    fat: 3.7,
+    carbs: 67
+  },
+  {
+    name: 'Gingerbread',
+    calories: 356,
+    fat: 16.0,
+    carbs: 49
+  },
+  {
+    name: 'Jelly bean',
+    calories: 375,
+    fat: 0.0,
+    carbs: 94
+  },
+  {
+    name: 'Lollipop',
+    calories: 392,
+    fat: 0.2,
+    carbs: 98
+  },
+  {
+    name: 'Honeycomb',
+    calories: 408,
+    fat: 3.2,
+    carbs: 87
+  },
+  {
+    name: 'Donut',
+    calories: 452,
+    fat: 25.0,
+    carbs: 51
+  },
+  {
+    name: 'KitKat',
+    calories: 518,
+    fat: 26.0,
+    carbs: 65
+  }
+]
 
-    const selectedButtons = ref([])
-    const multiSelect = ref(false)
-    const reservationName = ref('')
-    const showReservationDialog = ref(false)
-
-    const buttons = computed(() => {
-      const buttons = []
-      for (let i = 0; i <= 100; i++) {
-        buttons.push(i.toString())
-      }
-      return buttons
-    })
-
-
-    const isSelected = (button) => {
-      return selectedButtons.value.includes(button)
+export default {
+  setup () {
+    return {
+      filter: ref(''),
+      columns,
+      rows
     }
-
-    const selectButton = (button) => {
-      if (!multiSelect.value) {
-        selectedButtons.value = [button]
-      } else if (isSelected(button)) {
-        selectedButtons.value = selectedButtons.value.filter(b => b !== button)
-      } else {
-        selectedButtons.value.push(button)
-      }
-    }
-
-
-
-    const reserveButtons = () => {
-      // Aquí puedes hacer lo que necesites con los botones reservados y el nombre de la reserva
-      console.log('Botones reservados:', selectedButtons.value)
-      console.log('Nombre de la reserva:', reservationName.value)
-
-      // Reiniciamos los valores
-      selectedButtons.value = []
-      reservationName.value = ''
-      showReservationDialog.value = false
-    }
+  }
+}
 </script>
