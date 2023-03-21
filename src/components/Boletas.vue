@@ -3,7 +3,7 @@
 import {ref, defineProps} from "vue";
 
 const props = defineProps({
-    buttons: Function,
+    buttons: Array,
     isSelected: Function,
     selectButton: Function,
 });
@@ -17,7 +17,7 @@ const displayColorDialog = ref(false)
     <q-card-section class="row  d-flex q-pa-none" >
                         <div class="col-12 ">
                           <div class="row  boxPelotas justify-center q-mx-lg">
-                            <template v-for="(fila,index) in buttons" :key="index">
+                            <template v-for="(fila,index) in buttons" :key="index" >
                               <div class="col-12 justify-center flex">
                                   <q-btn  v-for="button in fila" :key="button"  class="btnBalotas"
                                     :label="button > 9 ? button : '0' + button" round @click="selectButton(button)"

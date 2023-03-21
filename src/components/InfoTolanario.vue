@@ -15,8 +15,8 @@ const props = defineProps({
 <template>
 
 <q-card class="my-card  col-12 q-mx-md">
-                  <q-card-section style="padding: 3px;">
-                    <q-list v-for="element in cardData" :key="element">
+                  <q-card-section style="padding: 3px;" >
+                    <q-list v-for="element in cardData" :key="element" >
                       <q-item class=" q-pa-none q-ma-none q-mt-md" dense>
                         <q-item-section class="col-2 text-h5 text-center justify-center flex items-center ">
                           <q-icon :name="element.icon" />
@@ -24,7 +24,6 @@ const props = defineProps({
                         <q-item-section class=" row flex">
                           <div class="col-12  items-center flex">
                             <span class="text-subtitle2">{{ element.value }}</span>
-                        
                           </div>
                         </q-item-section>
                       </q-item>

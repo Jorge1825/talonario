@@ -188,11 +188,13 @@ let cardData = ref([
 
 //Dialog color
 const displayColorDialog = ref(false)
+
 const colorDefault = ref({
   primary: '#1976D2',
   text_light: '#FFFFFF',
   text_dark: '#000000',
   colorFondo: '#FFFFFF',
+
   color_title_talonario:{
     color1: '#000000',
     color2: '#000000',
@@ -209,14 +211,19 @@ const colorDefault = ref({
 
   btnCircle: '#000000',
   btnSpecial: '#000000',
-  colorcard: '#000000',
-
-
+  colorCard: '#000000',
 })
 
-const colorUser = ref({
+const colorUser = ref({})
 
-})
+function saveColor(data){
+  console.log(data)
+
+  colorUser.value = data
+  console.log(colorUser.value)
+  
+  displayColorDialog.value = false
+}
 
 
 //dialog reservar
@@ -238,16 +245,14 @@ const buttons = computed(() => {
   const buttonsSimples = []
   for (let i = 0; i <= 99; i++) {
     buttonsSimples.push(i.toString())
-    console.log(buttonsSimples)
   }
 
   const filas = [];
     for (let i = 0; i < buttonsSimples.length; i += 10) {
       filas.push(buttonsSimples.slice(i, i + 10));
-      console.log(filas)
     }
 
-  console.log(buttonsSimples)
+  
 
   return filas
 })
@@ -255,7 +260,6 @@ const buttons = computed(() => {
 
 // Función que comprueba si un botón está seleccionado
 const isSelected = (button) => {
-  console.log(selectedButtons.value.includes(button))
   return selectedButtons.value.includes(button)
 }
 
@@ -380,8 +384,10 @@ const reserveButtons = () => {
       </q-dialog>
 
 
+      
       <q-dialog v-model="displayColorDialog" persistent>
-          <DialogColor :actualColor="actualColor" :saveColor="saveColor" />
+          <!-- <DialogColor :actualColor="actualColor" :saveColor="saveColor" /> -->
+          <DialogColor :actualColor="colorDefault" :saveColor="saveColor" />
       </q-dialog>
 
 
