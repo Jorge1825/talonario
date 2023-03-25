@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
-import { dataBoletas } from "./temp/data";
+import { dataBoletas } from "../temp/data.js";
 
 const columns = [
   {
@@ -115,7 +115,7 @@ const totalNoPagadas = computed(() => {
 
     <div class="row">
       <div class="col-12 q-mb-lg q-mt-sm">
-        <div class="row text-subtitle1">
+        <div class="row text-subtitle2">
           <div class="col-6 justify-center flex">
             <div class="row">
               <div class="col-12">Fecha del sorteo :</div>
@@ -142,10 +142,12 @@ const totalNoPagadas = computed(() => {
           <template v-slot:bottom>
             <div class="row  full-width justify-center flex">
               <div class="col-6 text-center">
-                Saldo recaudado ${{ totalPagadas }}
+                <strong>Saldo recaudado ${{ totalPagadas }}</strong>
+                
               </div>
-              <div class="col-6 text-center">
-                Saldo Pendiente${{ totalNoPagadas }}
+              <div class="col-6 text-center" >
+                <strong>Saldo Pendiente${{ totalNoPagadas }}</strong>
+                
               </div>
             </div>
 

@@ -1,10 +1,10 @@
 // FILE: main.js
 
 import { createApp } from 'vue'
-import { Quasar,BottomSheet } from 'quasar'
+import { Quasar,BottomSheet,Notify, Dialog } from 'quasar'
 
 // Import icon libraries
-import '@quasar/extras/roboto-font-latin-ext/roboto-font-latin-ext.css'
+
 import '@quasar/extras/material-icons/material-icons.css'
 import '@quasar/extras/material-icons-round/material-icons-round.css'
 import '@quasar/extras/fontawesome-v5/fontawesome-v5.css'
@@ -23,7 +23,9 @@ const myApp = createApp(App)
 
 myApp.use(Quasar, {
   plugins: {
-    BottomSheet
+    BottomSheet,
+    Notify,
+    Dialog
 
   }, // import Quasar plugins and add here
 })

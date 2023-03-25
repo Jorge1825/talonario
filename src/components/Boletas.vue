@@ -6,21 +6,39 @@ const props = defineProps({
     buttons: Array,
     isSelected: Function,
     selectButton: Function,
+    dataBoletas: Array,
 });
 
 const displayColorDialog = ref(false)
+
+
+const validateExist= (btn) => {
+  const estado = ref("")
+    props.dataBoletas.filter((item) => {
+        item.boletas.filter((item) => {
+            if (item.numero == btn) {
+                estado.value = item.estado
+            }
+        })
+    })
+
+    return estado.value
+}
+
+
+
 
 </script>
 
 
 <template>
     <q-card-section class="row  d-flex q-pa-none" >
-                        <div class="col-12 ">
-                          <div class="row  boxPelotas justify-center q-mx-lg">
+                        <div class="col-12 q-px-md boxBoxPelotas">
+                          <div class="row boxPelotas full-width justify-center ">
                             <template v-for="(fila,index) in buttons" :key="index" >
-                              <div class="col-12 justify-center flex">
-                                  <q-btn  v-for="button in fila" :key="button"  class="btnBalotas"
-                                    :label="button > 9 ? button : '0' + button" round @click="selectButton(button)"
+                              <div class="col-12 justify-between flex q-px-none paqueteBtns">
+                                  <q-btn  v-for="button in fila" :key="button"  class="btnBalotas" 
+                                    :label="button" round @click="selectButton(button)"
                                     :class="isSelected(button) ? 'btn-active' : ''">
                                     <q-badge v-if="isSelected(button)" color="green" dense floating rounded>
                                       <q-icon name="check" size="10px" />
@@ -36,16 +54,25 @@ const displayColorDialog = ref(false)
 
 
 <style>
+.paqueteBtns{
+  padding: 0px 0px;
+}
 
+/* pnatallas superiores a 600px */
+@media (min-width: 600px) {
+  .paqueteBtns{
+    padding: 0px 30px;
+  }
+}
 
 .btn-active {
-  background: rgb(0, 140, 255) !important;
+  background: rgb(55, 158, 255) !important;
   color: rgb(255, 255, 255) !important;
 }
 
 .boxPelotas {
 
-max-height: calc(100vh/1.48);
+max-height: calc(100vh/1.42);
 width: auto;
 overflow: auto;
 /*Estilos estándar experimentales (Principalmente Firefox)*/
@@ -87,14 +114,58 @@ border-radius: 10px;
 
 .btnBalotas {
   background: rgb(255,255,255);
-  background: radial-gradient(circle, rgba(255,255,255,1) 21%, rgba(253,254,255,1) 24%, rgb(150, 208, 255) 100%);
-  color: rgb(0, 0, 0) !important;
-  border: 1px solid rgb(255, 255, 255) !important;
-  width: 3rem;
-  height: 1rem !important;
-  margin: 0.08rem 0.3rem;
-
+  background: rgb(0, 9, 92); 
+  color: rgb(255, 255, 255) ;
+  border: 1px solid rgb(255, 255, 255) ;
+  width: 2.8vw !important;
+  margin: 0.05rem 0.3rem;
+  font-size: 130%;
 }
+
+.Pagas{
+  background: rgb(255, 255, 255);
+  background: linear-gradient(0deg, rgb(0, 52, 131) 20%, rgba(115,190,249,1) 100%);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255) ;
+  width: 3.2vw;
+  margin: 0.08rem 0.3rem;
+}
+
+.Debe{
+  background: rgb(255, 255, 255);
+  background: rgb(247, 61, 61);
+  color: white;
+  border: 1px solid rgb(255, 255, 255) ;
+  width: 3.2vw;
+  margin: 0.08rem 0.3rem;
+}
+
+/* Media  querys de pantallas inferiores a 500px */
+ @media screen and (max-width: 500px) {
+  .btnBalotas {
+    width: 0.5vw ; 
+    margin: 0.05rem 0.05rem;
+    font-size: 80%;
+    
+  }
+  .boxBoxPelotas{
+    padding: 0px 0px ;
+  }
+}
+
+/* Media  querys de pantallas inferiores a 600px y superiores a 500px */
+@media screen and (min-width: 500px) and (max-width: 1400px) {
+  .btnBalotas {
+    width: 3.5vw ;
+    height: 3.2vw ;
+    margin: 0.04rem 0.03rem;
+    font-size: 100%;
+  }
+  .boxBoxPelotas{
+    padding: 0px 0px ;
+  }
+}
+
 
 .btnBalotas:hover {
   transition: 0.3s;

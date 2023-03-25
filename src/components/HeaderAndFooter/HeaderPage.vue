@@ -15,7 +15,7 @@
 
 <style>
 .colorHeader{
-    background-color: #2578cf;
+    background-color: #004bad;
     color: #fff;
 }
 
@@ -24,7 +24,7 @@
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
     font-weight: 600;
     -webkit-text-stroke: 1px rgb(255, 255, 255);
     animation: sombra 4s infinite;

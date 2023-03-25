@@ -1,10 +1,10 @@
 <template>
-<q-footer elevated>
+<q-footer elevated class="colorHeader">
     <q-toolbar>
       <q-toolbar-title class="row justify-center">
-        <div class="col-12 text-subtitle2 text-center">
+        <div class="col-12 text-footer text-center">
           
-          © copyraight 2023 - Todos los derechos reservados
+          © Copyraight 2023 - Todos los derechos reservados
 
         </div>
 
@@ -18,5 +18,7 @@
 </template>
 
 <style>
-
+.text-footer{
+font-size: 16px;
+}
 </style>

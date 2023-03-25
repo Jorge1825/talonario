@@ -36,7 +36,7 @@ const columns = [
     required: true,
     label: "Direcion",
     align: "left",
-    field: (row) => row.direcion,
+    field: (row) => row.direccion,
     sortable: true,
     style: "margin : 0; padding: 0",
   },
@@ -88,6 +88,7 @@ const columns = [
               </template>
             </q-input>
           </template>
+          
         </q-table>
       </div>
     </q-card-section>
