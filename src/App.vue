@@ -293,10 +293,10 @@ async function generateFile(){
                 <div class=" container-card bg-card full-width row justify-center">
                 <div class="full-width">
                   <template v-if=" $q.screen.lt.md">
-                    <div class="text-center text-uppercase text-h5 q-pb-md">Información</div>
+                    <div class="text-center text-uppercase text-h5 color-title-informacion q-pb-md">Información</div>
                   </template>
                   <template v-if="$q.screen.gt.sm">
-                    <div class="text-center text-uppercase text-h5 q-pb-md">Información</div>
+                    <div class="text-center text-uppercase text-h5 color-title-informacion q-pb-md">Información</div>
                   </template>
                   <InfoTolanario :cardData="cardData" :openDialog="openDialog" />
                   
@@ -310,7 +310,7 @@ async function generateFile(){
                 <div class="container-card full-width row justify-center items-center ">
                 <div class="full-width ">
                   <div class="full-width ">
-                  <div class="text-center text-uppercase text-h5 q-pb-md">Acciones</div>
+                  <div class="text-center text-uppercase color-title-acciones text-h5 q-pb-md">Acciones</div>
                 </div>
                 <OpcionesBtn :buttonData="buttonData" />
                 </div>
@@ -325,7 +325,7 @@ async function generateFile(){
                 <div class="row justify-center  col-12 q-mb-sm">
                   <div class="col-5 justify-start flex items-center">
 
-                    <q-btn v-if="selectedButtons.length > 1" icon="person_add" label="Adquirir" @click="dialogReservarMulti = true"  :style="{'background-color': actualColor.primary}" />
+                    <q-btn class="color-btn-adquirir" v-if="selectedButtons.length > 1" icon="person_add" label="Adquirir" @click="dialogReservarMulti = true" />
                   
                   </div>
                   <div class="col-5 justify-end flex items-center">
@@ -348,7 +348,7 @@ async function generateFile(){
                   <template v-if="$q.screen.gt.sm">
                 <div class="full-width ">
                   <div class="full-width">
-                  <div class="text-center text-uppercase text-h5 q-pb-sm">Acciones</div>
+                  <div class="text-center text-uppercase text-h5 color-title-acciones q-pb-sm">Acciones</div>
                   </div>
                 
                   <OpcionesBtn :buttonData="buttonData" />
@@ -382,10 +382,7 @@ async function generateFile(){
 
       
       <q-dialog v-model="displayColorDialog" persistent>
-          <!-- <DialogColor :actualColor="actualColor" :saveColor="saveColor" /> -->
-          <!-- <DialogColor :actualColor="colorDefault" :saveColor="saveColor" /> -->
-          <DialogColor :actualColor="actualColor" :colorDefault="colorDefault" :saveColor="saveColor" />
-
+        <DialogColor :actualColor="actualColor" :colorDefault="colorDefault" :saveColor="saveColor" />
       </q-dialog>
 
 
@@ -425,8 +422,25 @@ async function generateFile(){
   padding: 20px 0 20px 0;
 }
 
-.bg-card {
+/* .bg-card {
   background-color: v-bind("actualColor.test")
+} */
+
+.color-title-informacion{
+  color: v-bind("actualColor.color_title_talonario.color1")
+}
+
+.color-title-acciones{
+  color: v-bind("actualColor.color_title_talonario.color2")
+}
+
+.color-header{
+  background-color: v-bind("actualColor.color_fondo_header");
+  color: #fff;
+}
+
+.color-btn-adqurir{
+  background-color: v-bind("actualColor.btn_adquirir")
 }
 
 .colorFondo {

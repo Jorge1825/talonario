@@ -10,36 +10,34 @@ const props = defineProps({
 
 const objectData =ref([
   {item: props.actualColor.color_fondo, label: 'color fondo'},
-  {item: props.actualColor.primary, label: 'color boton adquirir'},
+  {item: props.actualColor.color_fondo_header, label: 'color fondo header y footer'},
+
+  {item: props.actualColor.btn_adquirir, label: 'color boton adquirir'},
+
   {item: props.actualColor.color_title_talonario.color1, label: 'color title talonario'},
   {item: props.actualColor.color_title_talonario.color2, label: 'color title informacion'},
-  {item: props.actualColor.color_title_talonario.color3, label: 'color title acciones'},
-  {item: props.actualColor.color_balota.select, label: 'color balota select'},
-  {item: props.actualColor.color_balota.pagada, label: 'color balota pagada'},
-  {item: props.actualColor.color_balota.apartada, label: 'color balota apartada'},
-  {item: props.actualColor.color_balota.ganadora, label: 'color balota ganadora'},
-  {item: props.actualColor.btn_circle, label: 'btn1'},
-  {item: props.actualColor.btn_special, label: 'btn2'},
-  {item: props.actualColor.color_card},
-]);
 
-// const colorFondo = ref(props.actualColor.color_fondo);
-// const colorBase = ref('#285de0');
+  // {item: props.actualColor.color_balota.select, label: 'color balota select'},
+  // {item: props.actualColor.color_balota.pagada, label: 'color balota pagada'},
+  // {item: props.actualColor.color_balota.apartada, label: 'color balota apartada'},
+  // {item: props.actualColor.color_balota.ganadora, label: 'color balota ganadora'},
+  // {item: props.actualColor.color_card},
+
+]);
 
 const resetColor = () => {
   console.log(objectData.value);
   objectData.value[0].item = props.colorDefault.color_fondo;
-  objectData.value[1].item = props.colorDefault.primary;
-  objectData.value[2].item = props.colorDefault.color_title_talonario.color1;
-  objectData.value[3].item = props.colorDefault.color_title_talonario.color2;
-  objectData.value[4].item = props.colorDefault.color_title_talonario.color3;
-  objectData.value[5].item = props.colorDefault.color_balota.select;
-  objectData.value[6].item = props.colorDefault.color_balota.pagada;
-  objectData.value[7].item = props.colorDefault.color_balota.apartada;
-  objectData.value[8].item = props.colorDefault.color_balota.ganadora;
-  objectData.value[9].item = props.colorDefault.btn_circle;
-  objectData.value[10].item = props.colorDefault.btn_special;
-  objectData.value[11].item = props.colorDefault.color_card;
+  objectData.value[1].item = props.colorDefault.color_fondo_header;
+  objectData.value[2].item = props.colorDefault.btn_adquirir
+  objectData.value[3].item = props.colorDefault.color_title_talonario.color1;
+  objectData.value[4].item = props.colorDefault.color_title_talonario.color2;
+  // objectData.value[5].item = props.colorDefault.color_balota.select;
+  // objectData.value[6].item = props.colorDefault.color_balota.pagada;
+  // objectData.value[7].item = props.colorDefault.color_balota.apartada;
+  // objectData.value[8].item = props.colorDefault.color_balota.ganadora;
+  // objectData.value[11].item = props.colorDefault.color_card;
+
   console.log('colores por defecto');
 };
 
@@ -48,21 +46,19 @@ const guardarColor = () => {
   const data = ref({
     // color_fondo: colorFondo.value,
     color_fondo: objectData.value[0].item,
-    primary: objectData.value[1].item,
+    color_fondo_header: objectData.value[1].item,
+    btn_adquirir: objectData.value[2].item,
     color_title_talonario: {
-      color1: objectData.value[2].item,
-      color2: objectData.value[3].item,
-      color3: objectData.value[4].item,
+      color1: objectData.value[3].item,
+      color2: objectData.value[4].item,
     },
-    color_balota: {
-      select: objectData.value[5].item,
-      pagada: objectData.value[6].item,
-      apartada: objectData.value[7].item,
-      ganadora: objectData.value[8].item,
-    },
-    btn_circle: objectData.value[9].item,
-    btn_special: objectData.value[10].item,
-    color_card: objectData.value[11].item,
+    // color_balota: {
+    //   select: objectData.value[5].item,
+    //   pagada: objectData.value[6].item,
+    //   apartada: objectData.value[7].item,
+    //   ganadora: objectData.value[8].item,
+    // },
+    // color_card: objectData.value[11].item,
   });
 
   props.saveColor(data.value);
@@ -70,12 +66,12 @@ const guardarColor = () => {
 </script>
 
 <template>
-  <q-card class="my-card text-white" style="width: 500px; max-width: 80vw;">
+  <q-card class="my-card text-white" style="width: 700px; max-width: 80vw;">
     <q-card-section class="q-ma-none q-pa-none">
       <div class="row no-wrap items-center">
         <div class="col text-h6 ellipsis text-center bg-primary text-uppercase q-py-sm full-width">
           Paleta de colores
-          <q-separator />
+          <!-- <q-separator /> -->
         </div>
       </div>
     </q-card-section>
@@ -83,7 +79,7 @@ const guardarColor = () => {
     <q-form @submit="guardarColor" @reset="resetColor" >
       <q-card-section class="q-pt-none q-mt-sm">
         <div class="row  justify-center flex" >
-          <div class="col-6 q-px-sm " v-for="(element,index) in objectData" :key="index" >
+          <div class="col-4 q-px-sm " v-for="(element,index) in objectData" :key="index" >
             <q-input
               filled
               v-model="objectData[index].item"
@@ -114,7 +110,7 @@ const guardarColor = () => {
       
       <q-separator />
 
-      <q-card-actions>
+      <q-card-actions class="justify-center flex">
         <q-btn v-close-popup label="Guardar" type="submit" color="primary" @click="guardarColor" />
       </q-card-actions>
 

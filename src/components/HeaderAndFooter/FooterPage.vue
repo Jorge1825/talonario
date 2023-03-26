@@ -1,5 +1,5 @@
 <template>
-<q-footer elevated class="colorHeader">
+<q-footer elevated class="color-header">
     <q-toolbar>
       <q-toolbar-title class="row justify-center">
         <div class="col-12 text-footer text-center">

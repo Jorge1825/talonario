@@ -1,7 +1,7 @@
 
 
 <template>
-    <q-header elevated class="colorHeader">
+    <q-header elevated class="color-header">
         <q-toolbar>
           <div class="row full-width q-py-sm justify-center flex">
             <div class="col-11 text-center ">
@@ -14,10 +14,10 @@
 </template>
 
 <style>
-.colorHeader{
+/* .colorHeader{
     background-color: #004bad;
     color: #fff;
-}
+} */
 
 .retro{
     background:linear-gradient( #0a2472 0%, #0e6ba8 50%, #a6e1fa 100%);
