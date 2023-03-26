@@ -9,15 +9,15 @@ const props = defineProps({
     dataBoletas: Array,
 });
 
-const displayColorDialog = ref(false)
 
 
-const validateExist= (btn) => {
-  const estado = ref("")
+const validateEstado= (btn) => {
+
+  const estado = ref('')
     props.dataBoletas.filter((item) => {
         item.boletas.filter((item) => {
             if (item.numero == btn) {
-                estado.value = item.estado
+                item.estado == "0" ? estado.value = '0' : item.estado == "1" ? estado.value = '1' : estado.value = ''
             }
         })
     })
@@ -39,16 +39,21 @@ const validateExist= (btn) => {
                               <div class="col-12 justify-between flex q-px-none paqueteBtns">
                                   <q-btn  v-for="button in fila" :key="button"  class="btnBalotas" 
                                     :label="button" round @click="selectButton(button)"
-                                    :class="isSelected(button) ? 'btn-active' : ''">
+                                    :class="{'btn-active': isSelected(button), 'Pagas': validateEstado(button) == '1', 'Debe': validateEstado(button) == '0'}">
                                     <q-badge v-if="isSelected(button)" color="green" dense floating rounded>
                                       <q-icon name="check" size="10px" />
                                     </q-badge>
+                                    <q-tooltip class="bg-red"  v-if="validateEstado(button) == '0'" anchor="top middle" self="bottom middle" :offset="[0, 10]">
+                                      <div class="text-center">
+                                        Por pagar
+                                      </div>
+                                    </q-tooltip>
                                   </q-btn>
                                 </div>
                             </template>
                           </div>
                         </div>
-              
+                    
                     </q-card-section>
 </template>
 

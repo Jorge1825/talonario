@@ -19,7 +19,7 @@ export const dataBoletas = ref([
   },
 
   {
-    name: "Andres Arnulfo",
+    name: "Jorge Luis",
     telefono: "3100000000",
     direccion: "Calle 1 # 2 - 3",
     boletas: [
@@ -29,6 +29,10 @@ export const dataBoletas = ref([
       },
       {
         numero: "04",
+        estado: "1"
+      },
+      {
+        numero: "05",
         estado: "1"
       }
     ]

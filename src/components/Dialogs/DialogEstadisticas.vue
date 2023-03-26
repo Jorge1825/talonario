@@ -1,6 +1,7 @@
 <script setup>
 
 import { ref, defineProps } from "vue";
+import { colorDefault } from '../../temp/colors.js'
 
 const modelCard = ref([
   {
@@ -49,7 +50,7 @@ const modelCard = ref([
   <q-card class="my-card text-white" style="width: 520px; max-width: 80vw">
     <q-card-section class="q-ma-none q-pa-none">
       <div class="row no-wrap items-center">
-        <div class="col text-h6 ellipsis text-center bg-primary full-width q-py-md">
+        <div class="col text-h6 ellipsis text-center headerDialog full-width q-py-md">
           ESTADISTICAS DEL SORTEO
      
         </div>
@@ -88,7 +89,7 @@ const modelCard = ref([
 </template>
 
 
-<style scoped>
+<style>
 
 .cardStadistics{
   background: rgb(253, 253, 253);
@@ -97,5 +98,7 @@ const modelCard = ref([
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   
 }
-
+.headerDialog{
+  background: v-bind("colorDefault.test")
+}
 </style>

@@ -82,8 +82,8 @@ const guardarColor = () => {
 
     <q-form @submit="guardarColor" @reset="resetColor" >
       <q-card-section class="q-pt-none q-mt-sm">
-        <div class="row justify-center flex" v-for="(element,index) in objectData" :key="index" >
-          <div class="col-6 q-px-sm ">
+        <div class="row  justify-center flex" >
+          <div class="col-6 q-px-sm " v-for="(element,index) in objectData" :key="index" >
             <q-input
               filled
               v-model="objectData[index].item"

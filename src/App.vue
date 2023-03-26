@@ -9,6 +9,7 @@ import html2pdf from 'html2pdf.js'
 //data
 import {dataBoletas} from '../src/temp/data.js'
 import {cardData} from '../src/temp/data.js'
+import { colorDefault } from './temp/colors'
 
 
 //importar componenetes 
@@ -85,31 +86,7 @@ function saveData(data,value){
 //Dialog color
 const displayColorDialog = ref(false)
 
-const colorDefault = ref({
-  primary: '#1976D2',
 
-  text_light: '#FFFFFF',
-  text_dark: '#000000',
-  color_fondo: '#FFFFFF',
-
-  color_title_talonario:{
-    color1: '#000000',
-    color2: '#000000',
-    color3: '#000000',
-  },
-
-  color_balota:{
-    select: '#000000',
-    pagada: '#000000',
-    apartada: '#000000',
-    ganadora: '#000000',
-
-  },
-
-  btn_circle: '#000000',
-  btn_special: '#000000',
-  color_card: '#000000',
-})
 
 const actualColor = ref(colorDefault.value)
 const colorUser = ref({})
@@ -197,8 +174,6 @@ watch(dialogReservarMulti, (value) => {
 // Función para reservar las boletas
 const reserveBoleta = (data) => {
  
-  console.log('Botones reservados:', selectedButtons.value)
-  console.log('Datos de la reserva:', data) 
 
   const {
     pagar,
@@ -227,7 +202,7 @@ const reserveBoleta = (data) => {
     console.log(dataBoletas.value[indexExist].boletas)
     let nameClient = dataBoletas.value[indexExist].name
     console.log(nameClient)
-c
+
     $q.notify({
           type: 'positive',
           message: 'Se agregaron las boletas a '+ nameClient,
@@ -254,6 +229,7 @@ c
   //limpiar los datos
   dialogReservar.value = false
   dialogReservarMulti.value = false
+  multiSelect.value = false
 
 }
 
@@ -314,7 +290,7 @@ async function generateFile(){
           <div class="col-12 ">
             <div class="row full-height ">
               <div class="col-md-3 col-sm-6 col-12 flex items-center justify-center q-px-md">
-                <div class=" container-card full-width row justify-center">
+                <div class=" container-card bg-card full-width row justify-center">
                 <div class="full-width">
                   <template v-if=" $q.screen.lt.md">
                     <div class="text-center text-uppercase text-h5 q-pb-md">Información</div>
@@ -436,23 +412,21 @@ async function generateFile(){
 </template>
 
 
-<style scoped>
+<style >
 
 
-
-.textBoletas {
-  color: #007B84;
-  text-shadow: 1px 1px 2px #738dff;
-}
 .container-card{
   height: auto;
-  background-color: rgba(182, 182, 182, 0.329);
+ /*  background-color: rgba(182, 182, 182, 0.329); */
+ 
   border-radius: 20px;
   justify-content: center;
   align-items: center;
   padding: 20px 0 20px 0;
+}
 
-
+.bg-card {
+  background-color: v-bind("actualColor.test")
 }
 
 .colorFondo {
