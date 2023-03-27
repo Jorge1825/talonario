@@ -17,11 +17,12 @@ const objectData =ref([
   {item: props.actualColor.color_title_talonario.color1, label: 'color title talonario'},
   {item: props.actualColor.color_title_talonario.color2, label: 'color title informacion'},
 
+  {item: props.actualColor.color_card, label: 'color card acciones y informacion'},
+
   // {item: props.actualColor.color_balota.select, label: 'color balota select'},
   // {item: props.actualColor.color_balota.pagada, label: 'color balota pagada'},
   // {item: props.actualColor.color_balota.apartada, label: 'color balota apartada'},
   // {item: props.actualColor.color_balota.ganadora, label: 'color balota ganadora'},
-  // {item: props.actualColor.color_card},
 
 ]);
 
@@ -32,11 +33,12 @@ const resetColor = () => {
   objectData.value[2].item = props.colorDefault.btn_adquirir
   objectData.value[3].item = props.colorDefault.color_title_talonario.color1;
   objectData.value[4].item = props.colorDefault.color_title_talonario.color2;
+  objectData.value[5].item = props.colorDefault.color_card;
+  
   // objectData.value[5].item = props.colorDefault.color_balota.select;
   // objectData.value[6].item = props.colorDefault.color_balota.pagada;
   // objectData.value[7].item = props.colorDefault.color_balota.apartada;
   // objectData.value[8].item = props.colorDefault.color_balota.ganadora;
-  // objectData.value[11].item = props.colorDefault.color_card;
 
   console.log('colores por defecto');
 };
@@ -44,21 +46,24 @@ const resetColor = () => {
 const guardarColor = () => {
   console.log(objectData.value);
   const data = ref({
-    // color_fondo: colorFondo.value,
     color_fondo: objectData.value[0].item,
     color_fondo_header: objectData.value[1].item,
+    
     btn_adquirir: objectData.value[2].item,
+    
     color_title_talonario: {
       color1: objectData.value[3].item,
       color2: objectData.value[4].item,
     },
+    
+    color_card: objectData.value[5].item,
+    
     // color_balota: {
     //   select: objectData.value[5].item,
     //   pagada: objectData.value[6].item,
     //   apartada: objectData.value[7].item,
     //   ganadora: objectData.value[8].item,
     // },
-    // color_card: objectData.value[11].item,
   });
 
   props.saveColor(data.value);

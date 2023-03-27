@@ -71,7 +71,7 @@ function share () {
 
 <template>
 
-    <q-card class="my-card col-10  q-mx-md q-py-xs">
+    <q-card class="my-card bg-card col-10 q-mx-md q-py-xs">
                   <q-card-section>
                     <div class="row justify-center q-pb-xs">
                       <div class="col-12 col-md-12 col-lg-8   justify-center flex">

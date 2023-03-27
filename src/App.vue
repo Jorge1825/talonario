@@ -241,7 +241,7 @@ const reserveBoleta = (data) => {
 async function generateFile(){
   const notif = $q.notify({
           type: 'ongoing',
-          message: 'Generaando pdf...',
+          message: 'Generando pdf...',
           position: 'top'
         })
 
@@ -285,76 +285,68 @@ async function generateFile(){
       <HeaderPage />
 
       <q-page-container >
-        <q-page class="row q-pq-none q-ma-none colorFondo justify-center flex">
+        <q-page class="row q-pq-none q-ma-none color-fondo justify-center flex">
 
           <div class="col-12 ">
             <div class="row full-height ">
               <div class="col-md-3 col-sm-6 col-12 flex items-center justify-center q-px-md">
-                <div class=" container-card bg-card full-width row justify-center">
-                <div class="full-width">
-                  <template v-if=" $q.screen.lt.md">
-                    <div class="text-center text-uppercase text-h5 color-title-informacion q-pb-md">Información</div>
-                  </template>
-                  <template v-if="$q.screen.gt.sm">
-                    <div class="text-center text-uppercase text-h5 color-title-informacion q-pb-md">Información</div>
-                  </template>
-                  <InfoTolanario :cardData="cardData" :openDialog="openDialog" />
-                  
-                  
-              </div>
-              </div>
+                <div class=" container-card full-width row justify-center">
+                  <div class="full-width">
+                    <template v-if=" $q.screen.lt.md">
+                      <div class="text-center text-uppercase text-h5 color-title-informacion q-pb-md">Información</div>
+                    </template>
+                    <template v-if="$q.screen.gt.sm">
+                      <div class="text-center text-uppercase text-h5 color-title-informacion q-pb-md">Información</div>
+                    </template>
+                    <InfoTolanario :cardData="cardData" :openDialog="openDialog" />
+                  </div>
+                </div>
               </div>
               <!-- Mostrar si solo la pantalla es mayor a xs -->
               <template v-if=" $q.screen.lt.md">
                 <div class="col-md-3 col-sm-6 col-12 flex items-center justify-center q-px-md">
-                <div class="container-card full-width row justify-center items-center ">
-                <div class="full-width ">
-                  <div class="full-width ">
-                  <div class="text-center text-uppercase color-title-acciones text-h5 q-pb-md">Acciones</div>
+                  <div class="container-card full-width row justify-center items-center ">
+                    <div class="full-width ">
+                      <div class="full-width ">
+                        <div class="text-center text-uppercase color-title-acciones text-h5 q-pb-md">Acciones</div>
+                      </div>
+                      <OpcionesBtn :buttonData="buttonData" />
+                    </div>
+                  </div>
                 </div>
-                <OpcionesBtn :buttonData="buttonData" />
-                </div>
-                </div>
-
-              </div>
               </template>
 
               <div class="col-md-6 col-12  items-center  flex ">
                 <div class="row ">
   
-                <div class="row justify-center  col-12 q-mb-sm">
-                  <div class="col-5 justify-start flex items-center">
-
-                    <q-btn class="color-btn-adquirir" v-if="selectedButtons.length > 1" icon="person_add" label="Adquirir" @click="dialogReservarMulti = true" />
-                  
-                  </div>
-                  <div class="col-5 justify-end flex items-center">
-                    <div class=" q-pr-md q-pl-sm q-py-none rounded-borders" style="background-color: #eef6ff;">
-                      <q-checkbox size="lg"  keep-color color="purple-7" v-model="multiSelect" label="Selección múltiple" @click="multiSelect === false ? selectedButtons = [] : ''" />
+                  <div class="row justify-center  col-12 q-mb-sm">
+                    <div class="col-5 justify-start flex items-center">
+                      <q-btn class="color-btn-adquirir" v-if="selectedButtons.length > 1" icon="person_add" label="Adquirir" @click="dialogReservarMulti = true" />
+                    </div>
+                    <div class="col-5 justify-end flex items-center">
+                      <div class=" q-pr-md q-pl-sm q-py-none rounded-borders" style="background-color: #eef6ff;">
+                        <q-checkbox size="lg"  keep-color color="purple-7" v-model="multiSelect" label="Selección múltiple" @click="multiSelect === false ? selectedButtons = [] : ''" />
+                      </div>
                     </div>
                   </div>
-
-                </div>
-                <div class="row justify-center  items-center" >
-                  <div class="col-12 flex full-width  ">
-                    <Boletas :buttons="buttons" :isSelected="isSelected" :selectButton="selectButton" :dataBoletas="dataBoletas" :colorUser="actualColor" />
+                  <div class="row justify-center  items-center" >
+                    <div class="col-12 flex full-width  ">
+                      <Boletas :buttons="buttons" :isSelected="isSelected" :selectButton="selectButton" :dataBoletas="dataBoletas" :colorUser="actualColor" />
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
            
               <div class="col-md-3 col-4 flex items-center justify-center q-px-md">
                 <div class="container-card full-width row justify-center items-center ">
                   <template v-if="$q.screen.gt.sm">
-                <div class="full-width ">
-                  <div class="full-width">
-                  <div class="text-center text-uppercase text-h5 color-title-acciones q-pb-sm">Acciones</div>
-                  </div>
+                    <div class="full-width ">
+                      <div class="full-width">
+                        <div class="text-center text-uppercase text-h5 color-title-acciones q-pb-sm">Acciones</div>
+                      </div>
                 
-                  <OpcionesBtn :buttonData="buttonData" />
-         
-                
-                </div>
+                      <OpcionesBtn :buttonData="buttonData" />
+                    </div>
                   </template>
                 </div>
 
@@ -439,13 +431,18 @@ async function generateFile(){
   color: #fff;
 }
 
-.color-btn-adqurir{
+.color-btn-adquirir{
   background-color: v-bind("actualColor.btn_adquirir")
 }
 
-.colorFondo {
+.bg-card{
+  background-color: v-bind("actualColor.color_card")
+}
+
+.color-fondo {
   background: rgb(255, 255, 255);
   background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(213, 248, 255, 1) 100%);
+  /* background-color: v-bind("actualColor.color_fondo") */
 }
 
 .infoText {

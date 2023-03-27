@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
 export const colorDefault = ref({
-    color_fondo: '#FFFFFF',
+    color_fondo: '#ffffff',
     color_fondo_header: '#004bad',
 
     btn_adquirir: '#1976D2',
@@ -11,15 +11,14 @@ export const colorDefault = ref({
       color2: '#000000',
     },
     
+    color_card: '#ffffff',
     
     color_balota:{
-      select: '#000000',
-      pagada: '#000000',
-      apartada: '#000000',
+      pagada: ' linear-gradient(0deg, rgb(0, 52, 131) 20%, rgba(115,190,249,1) 100%)',
+      apartada: 'rgb(247, 61, 61)',
       ganadora: '#000000',
-      normal: '#000000',      
+      normal: 'rgb(0, 9, 92)',      
     },
     
-    color_card: '#000000',
     // test: '#cf1b1b',
   })

@@ -14,7 +14,7 @@ const props = defineProps({
 
 <template>
 
-<q-card class="my-card  col-12 q-mx-md">
+<q-card class="my-card bg-card col-12 q-mx-md">
                   <q-card-section style="padding: 3px;" >
                     <q-list v-for="element in cardData" :key="element" >
                       <q-item class=" q-pa-none q-ma-none q-my-lg" dense>
