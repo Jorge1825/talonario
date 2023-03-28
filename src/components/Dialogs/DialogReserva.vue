@@ -4,12 +4,16 @@ import { ref, computed, defineProps } from 'vue'
 import { useQuasar } from 'quasar';
 
 import DialogAdquirir from './DialogAdquirir.vue'
+import DialogParticipante from './DialogParticipant.vue';
+
 import {dataBoletas} from '../../temp/data.js'
+
 
 const $q = useQuasar()
 
 const estadoBoleta = ref("")
- const showAdquirir = ref(false)
+const showAdquirir = ref(false)
+const showParticipante = ref(false)
 
 const props = defineProps({
   dataBoletas: Array,
@@ -100,7 +104,7 @@ const props = defineProps({
 
     <q-card-section class="row items-center q-my-none q-pt-none">
       <q-list class="full-width q-mt-none q-pt-none">
-        <q-item clickable v-ripple v-if="boletaExist === '0' || boletaExist === '1'"> 
+        <q-item clickable v-ripple v-if="boletaExist === '0' || boletaExist === '1'" @click="showParticipante = true"> 
           <q-item-section avatar>
             <q-icon color="primary" name="visibility" />
           </q-item-section>
@@ -137,11 +141,13 @@ const props = defineProps({
   </q-card>
 
 
-
-    
-
+  <!--  Dialogo para adquirir boleta -->
   <q-dialog v-model="showAdquirir" >
     <DialogAdquirir :boletaSelect="boletaSelect" :reserveBoleta="addBoleta" />
+    </q-dialog>
+
+   <q-dialog v-model="showParticipante" >
+    <DialogParticipante :boletaSelect="boletaSelect" />
     </q-dialog>
 
 

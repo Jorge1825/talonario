@@ -75,7 +75,7 @@ const guardarColor = () => {
     <q-card-section class="q-ma-none q-pa-none">
       <div class="row no-wrap items-center">
         <div class="col text-h6 ellipsis text-center bg-primary text-uppercase q-py-sm full-width">
-          Paleta de colores
+          <strong>Paleta de colores</strong>
           <!-- <q-separator /> -->
         </div>
       </div>

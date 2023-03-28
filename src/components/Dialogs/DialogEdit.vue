@@ -36,7 +36,8 @@
       <q-card-section class="q-ma-none q-pa-none">
         <div class="row no-wrap items-center">
           <div class="col-12 text-center text-h6 text-uppercase bg-primary q-py-sm text-white">
-            Editar Sorteo
+            <strong>Editar Sorteo</strong>
+  
           </div>
         </div>
 

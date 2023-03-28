@@ -74,7 +74,7 @@ function share () {
     <q-card class="my-card bg-card col-10 q-mx-md q-py-xs">
                   <q-card-section>
                     <div class="row justify-center q-pb-xs">
-                      <div class="col-12 col-md-12 col-lg-8   justify-center flex">
+                      <div class="col-12 col-md-12 col-lg-10   justify-center flex">
        
                           <div class="row flex q-mt-xs full-width">
                           <q-btn class="full-width btnEstado q-py-sm q-mb-sm " label="Estado" color="purple-7" />

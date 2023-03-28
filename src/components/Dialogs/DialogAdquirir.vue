@@ -29,7 +29,7 @@ const options = [
     <q-card-section class="q-ma-none q-pa-none">
       <div class="row no-wrap items-center">
         <div class="col text-h6 ellipsis text-center bg-primary full-width q-py-md">
-          Diligencia la Informacion 
+          <strong>Diligencia la Informacion </strong>
      
         </div>
       </div>
@@ -39,8 +39,8 @@ const options = [
       <q-card-section class="q-pt-none q-mt-sm">
         <div class="row justify-center flex">
 
-            <div class="col-10 text-dark q-my-md text-subtitle2 text-center">
-                Boletas a Adquirir :  {{ boletaSelect.map((item) => item).join(" - ") }}
+            <div class="col-10 text-dark q-mt-sm q-mb-md text-subtitle2 text-center">
+                <strong>Boletas a Adquirir :  {{ boletaSelect.map((item) => item).join(" - ") }}</strong>  
                 
                 </div>
           <div class="col-10 justify-center flex">
@@ -91,7 +91,7 @@ const options = [
 
             </q-input>
 
-            <div class="bg-grey-2 full-width rounded-borders text-dark q-pt-xs">
+            <div class=" full-width rounded-borders text-dark q-pt-xs">
               Pagar ya:
               <q-option-group
                 name="preferred_genre"

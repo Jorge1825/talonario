@@ -3,6 +3,7 @@
 import {ref, defineProps} from "vue";
 
 const props = defineProps({
+    multiSelect: Boolean,
     buttons: Array,
     isSelected: Function,
     selectButton: Function,
@@ -37,9 +38,14 @@ const validateEstado= (btn) => {
                           <div class="row boxPelotas full-width justify-center ">
                             <template v-for="(fila,index) in buttons" :key="index" >
                               <div class="col-12 justify-between flex q-px-none paqueteBtns">
-                                  <q-btn  v-for="button in fila" :key="button"  class="btnBalotas" 
-                                    :label="button" round @click="selectButton(button)"
+                                  <q-btn  v-for="button in fila" :key="button"  
+                                  class="btnBalotas" 
+                                    :label="button" 
+                                    round 
+                                    :disable="multiSelect && (validateEstado(button) == '1' || validateEstado(button) == '0')"
+                                    @click="selectButton(button)"
                                     :class="{'btn-active': isSelected(button), 'Pagas': validateEstado(button) == '1', 'Debe': validateEstado(button) == '0'}">
+                                    
                                     <q-badge v-if="isSelected(button)" color="green" dense floating rounded>
                                       <q-icon name="check" size="10px" />
                                     </q-badge>
@@ -77,10 +83,10 @@ const validateEstado= (btn) => {
 
 .boxPelotas {
 
-max-height: calc(100vh/1.42);
+max-height: calc(100vh/1.36);
 width: auto;
 overflow: auto;
-/*Estilos estándar experimentales (Principalmente Firefox)*/
+
 scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
 scrollbar-width: thin;
 border-radius: 10px;
@@ -122,9 +128,9 @@ border-radius: 10px;
   background: rgb(0, 9, 92); 
   color: rgb(255, 255, 255) ;
   border: 1px solid rgb(255, 255, 255) ;
-  width: 2.8vw !important;
-  margin: 0.05rem 0.3rem;
-  font-size: 130%;
+  width: 3.5vw !important;
+  margin: 0.04rem 0.03rem;
+  font-size: 107%;
 }
 
 .Pagas{
@@ -132,8 +138,8 @@ border-radius: 10px;
   background: linear-gradient(0deg, rgb(0, 52, 131) 20%, rgba(115,190,249,1) 100%);
   color: rgb(255, 255, 255);
   border: 1px solid rgb(255, 255, 255) ;
-  width: 3.2vw;
-  margin: 0.08rem 0.3rem;
+  width: 3.5vw !important;
+
 }
 
 .Debe{
@@ -141,15 +147,15 @@ border-radius: 10px;
   background: rgb(247, 61, 61);
   color: white;
   border: 1px solid rgb(255, 255, 255) ;
-  width: 3.2vw;
-  margin: 0.08rem 0.3rem;
+  width: 3.5vw !important;
+
 }
 
 /* Media  querys de pantallas inferiores a 500px */
  @media screen and (max-width: 500px) {
   .btnBalotas {
-    width: 0.5vw ; 
-    margin: 0.05rem 0.05rem;
+    width: 0.5vw !important; 
+    margin: 0rem 0.05rem;
     font-size: 80%;
     
   }
@@ -159,10 +165,10 @@ border-radius: 10px;
 }
 
 /* Media  querys de pantallas inferiores a 600px y superiores a 500px */
-@media screen and (min-width: 500px) and (max-width: 1400px) {
+@media screen and (min-width: 500px) and (max-width: 1000px) {
   .btnBalotas {
-    width: 3.5vw ;
-    height: 3.2vw ;
+    width: 7vw !important;
+    height: 4vw ;
     margin: 0.04rem 0.03rem;
     font-size: 100%;
   }

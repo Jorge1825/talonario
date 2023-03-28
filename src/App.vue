@@ -10,7 +10,7 @@ import html2pdf from 'html2pdf.js'
 import {dataBoletas} from '../src/temp/data.js'
 import {cardData} from '../src/temp/data.js'
 import { colorDefault } from './temp/colors'
-
+import {configTalonario} from '../src/temp/data.js'
 
 //importar componenetes 
 import HeaderPage from './components/HeaderAndFooter/HeaderPage.vue'
@@ -108,7 +108,7 @@ function saveColor(data){
 // Función que genera los botones y sus filas
 const buttons = computed(() => {
   const buttonsSimples = []
-  for (let i = 0; i <= 99; i++) {
+  for (let i = 0; i <= configTalonario.value.balotas; i++) {
     buttonsSimples.push(i.toString().padStart(2, '0')) //padStart rellena con ceros a la izquierda en caso de que el numero sea menor a 2 digitos
   }
 
@@ -184,13 +184,13 @@ const reserveBoleta = (data) => {
 
   //buscar en dataBoletas si el telefono ya existe y capturar el indice
   let indexExist = dataBoletas.value.findIndex((item) => item.telefono === telefono)
-  console.log(indexExist)
 
   //crear el objeto para cada uno de los botones selecionados 
   let boletas = selectedButtons.value.map((item) => {
     return {
       numero: item.toString(),
       estado: pagar.toString(),
+      fecha: new Date().toLocaleString(),
     }
   })
 
@@ -199,9 +199,7 @@ const reserveBoleta = (data) => {
   if(indexExist !== -1){
     //añadir las boletas al array de boletas si el telefono ya existe
     dataBoletas.value[indexExist].boletas.push(...boletas) //con el ... se añaden los elementos del array y no el array completo
-    console.log(dataBoletas.value[indexExist].boletas)
     let nameClient = dataBoletas.value[indexExist].name
-    console.log(nameClient)
 
     $q.notify({
           type: 'positive',
@@ -279,7 +277,6 @@ async function generateFile(){
 
 
 <template>
-  <div>
     <q-layout view="lHh lpr lFf">
 
       <HeaderPage />
@@ -331,7 +328,7 @@ async function generateFile(){
                   </div>
                   <div class="row justify-center  items-center" >
                     <div class="col-12 flex full-width  ">
-                      <Boletas :buttons="buttons" :isSelected="isSelected" :selectButton="selectButton" :dataBoletas="dataBoletas" :colorUser="actualColor" />
+                      <Boletas :multiSelect="multiSelect" :buttons="buttons" :isSelected="isSelected" :selectButton="selectButton" :dataBoletas="dataBoletas" :colorUser="actualColor" />
                     </div>
                   </div>
                 </div>
@@ -397,7 +394,6 @@ async function generateFile(){
       <FooterPage />
 
     </q-layout>
-  </div>
 </template>
 
 
