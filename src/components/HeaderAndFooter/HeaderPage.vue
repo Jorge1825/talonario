@@ -1,11 +1,9 @@
-
-
 <template>
     <q-header elevated class="color-header">
         <q-toolbar>
           <div class="row full-width q-py-sm justify-center flex">
             <div class="col-11 text-center ">
-              <q-toolbar-title class="text-h3 retro">TALONARIO</q-toolbar-title>
+              <q-toolbar-title class="text-h3 color-title">TALONARIO</q-toolbar-title>
             </div>
           </div>
   
@@ -19,7 +17,7 @@
     color: #fff;
 } */
 
-.retro{
+/* .retro{
     background:linear-gradient( #0a2472 0%, #0e6ba8 50%, #a6e1fa 100%);
     color: transparent;
     background-clip: text;
@@ -46,6 +44,5 @@
             filter: drop-shadow(5px 5px 10px rgb(0, 0, 0));
             -webkit-filter: drop-shadow(5px 5px 10px rgb(0, 0, 0));
         }
-    }
-
+    } */
 </style> 

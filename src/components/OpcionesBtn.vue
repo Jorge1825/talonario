@@ -13,7 +13,7 @@ const $q = useQuasar()
 
 const showStadistics = ref(false)
 
-
+const prueba = '#ffffff'
 
 function share () {
       $q.bottomSheet({
@@ -71,7 +71,7 @@ function share () {
 
 <template>
 
-    <q-card class="my-card bg-card col-10 q-mx-md q-py-xs">
+    <q-card class="my-card color-fondo col-10 q-mx-md q-py-xs">
                   <q-card-section>
                     <div class="row justify-center q-pb-xs">
                       <div class="col-12 col-md-12 col-lg-10   justify-center flex">
@@ -82,13 +82,13 @@ function share () {
 
 
                         <template v-for="element in buttonData" :key="element">
-                          <q-btn  color="primary"  class="full-width btnsOpciones q-py-xs q-my-xs btnRedondo"
+                          <q-btn  class="full-width btnsOpciones color-btn q-py-xs q-my-xs btnRedondo"
                             @click="element.click">
                             <div class="row icono  full-width items-center">
                               <div class="col-2 justify-center flex q-pl-sm full-height">
                                 <q-icon :name="element.icon" size="lg" />
                               </div>
-                              <div class="col-10  q-pa-none q-ma-none text-subtitle2">
+                              <div class="col-10  q-pa-none q-ma-none text-white text-subtitle2">
                                 {{ element.value }}
                               </div>
                             </div>
@@ -117,7 +117,6 @@ function share () {
 </template>
 
 <style>
-
 .btnsOpciones{
     font-size: 12px;
     font-weight: bold;

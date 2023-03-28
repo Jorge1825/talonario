@@ -32,7 +32,7 @@
 
 <template>
 
-  <q-card class="my-card bg-card" style="width: 400px; max-width: 80vw;">
+  <q-card class="my-card" style="width: 400px; max-width: 80vw;">
       <q-card-section class="q-ma-none q-pa-none">
         <div class="row no-wrap items-center">
           <div class="col-12 text-center text-h6 text-uppercase bg-primary q-py-sm text-white">

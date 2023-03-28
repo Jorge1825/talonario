@@ -34,17 +34,17 @@ const validateEstado= (btn) => {
 
 <template>
     <q-card-section class="row  d-flex q-pa-none" >
-                        <div class="col-12 q-px-md boxBoxPelotas">
+                        <div class="col-12 q-px-md boxBoxPelotas color-fondo">
                           <div class="row boxPelotas full-width justify-center ">
                             <template v-for="(fila,index) in buttons" :key="index" >
                               <div class="col-12 justify-between flex q-px-none paqueteBtns">
                                   <q-btn  v-for="button in fila" :key="button"  
-                                  class="btnBalotas" 
+                                  class="btnBalotas color-balota" 
                                     :label="button" 
                                     round 
                                     :disable="multiSelect && (validateEstado(button) == '1' || validateEstado(button) == '0')"
                                     @click="selectButton(button)"
-                                    :class="{'btn-active': isSelected(button), 'Pagas': validateEstado(button) == '1', 'Debe': validateEstado(button) == '0'}">
+                                    :class="{'color-balota-select': isSelected(button), 'color-balota-pagada': validateEstado(button) == '1', 'color-balota-apartada': validateEstado(button) == '0'}">
                                     
                                     <q-badge v-if="isSelected(button)" color="green" dense floating rounded>
                                       <q-icon name="check" size="10px" />
@@ -76,10 +76,10 @@ const validateEstado= (btn) => {
   }
 }
 
-.btn-active {
+/* .btn-active {
   background: rgb(55, 158, 255) !important;
   color: rgb(255, 255, 255) !important;
-}
+} */
 
 .boxPelotas {
 
@@ -90,7 +90,7 @@ overflow: auto;
 scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
 scrollbar-width: thin;
 border-radius: 10px;
-background-color: #ecf5ff;
+/* background-color: #ecf5ff; */
 }
 
 /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
@@ -124,15 +124,15 @@ border-radius: 10px;
 
 
 .btnBalotas {
+  /* background: rgb(0, 9, 92);  */
   background: rgb(255,255,255);
-  background: rgb(0, 9, 92); 
   color: rgb(255, 255, 255) ;
   border: 1px solid rgb(255, 255, 255) ;
   width: 3.5vw !important;
   margin: 0.04rem 0.03rem;
   font-size: 107%;
 }
-
+/* 
 .Pagas{
   background: rgb(255, 255, 255);
   background: linear-gradient(0deg, rgb(0, 52, 131) 20%, rgba(115,190,249,1) 100%);
@@ -140,16 +140,16 @@ border-radius: 10px;
   border: 1px solid rgb(255, 255, 255) ;
   width: 3.5vw !important;
 
-}
+} */
 
-.Debe{
+/* .Debe{
   background: rgb(255, 255, 255);
   background: rgb(247, 61, 61);
   color: white;
   border: 1px solid rgb(255, 255, 255) ;
   width: 3.5vw !important;
 
-}
+} */
 
 /* Media  querys de pantallas inferiores a 500px */
  @media screen and (max-width: 500px) {

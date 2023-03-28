@@ -1,4 +1,3 @@
-
 <script setup>
 
 import { ref, defineProps } from "vue";
@@ -14,7 +13,7 @@ const props = defineProps({
 
 <template>
 
-<q-card class="my-card bg-card col-12 q-mx-md">
+<q-card class="my-card color-fondo col-12 q-mx-md">
                   <q-card-section style="padding: 3px;" >
                     <q-list v-for="element in cardData" :key="element" >
                       <q-item class=" q-pa-none q-ma-none q-my-lg" dense>
@@ -23,7 +22,7 @@ const props = defineProps({
                         </q-item-section>
                         <q-item-section class=" row flex">
                           <div class="col-12  items-center flex">
-                            <span class="text-h6">{{ element.value }}</span>
+                            <span class="text-h6 text-dark">{{ element.value }}</span>
                           </div>
                         </q-item-section>
                       </q-item>
@@ -31,7 +30,7 @@ const props = defineProps({
                     </q-list>
                     <div class="row q-my-sm">
                       <div class="col-12 justify-center flex q-mt-md q-mb-sm">
-                        <q-btn class="q-mr-md btnEditar"  @click="openDialog(true)" label="Editar"  color="primary" push>
+                        <q-btn class="q-mr-md btnEditar color-btn text-white"  @click="openDialog(true)" label="Editar" push>
                           <q-icon name="edit" class="q-pl-xs " size="15px" />
                         </q-btn>
                       </div>
@@ -46,5 +45,4 @@ const props = defineProps({
   padding: 0px 20px;
   font-size: 18px;
 }
-
 </style>

@@ -1,5 +1,3 @@
-
-
 <script setup>
 
 import { ref, computed, watch } from 'vue'
@@ -89,6 +87,7 @@ const displayColorDialog = ref(false)
 
 
 const actualColor = ref(colorDefault.value)
+
 const colorUser = ref({})
 
 //funcion que guarda el color seleccionados por el usuario
@@ -96,10 +95,10 @@ function saveColor(data){
   console.log(data)
 
   colorUser.value = data
-  console.log(colorUser.value)
-  
-  actualColor.value = colorUser.value
-  console.log(actualColor.value)
+  actualColor.value = data
+  actual.value = data
+
+  console.log(actualColor.value, actual.value)
 
   displayColorDialog.value = false
 }
@@ -290,10 +289,10 @@ async function generateFile(){
                 <div class=" container-card full-width row justify-center">
                   <div class="full-width">
                     <template v-if=" $q.screen.lt.md">
-                      <div class="text-center text-uppercase text-h5 color-title-informacion q-pb-md">Información</div>
+                      <div class="text-center text-uppercase text-h5 text-dark">Información</div>
                     </template>
                     <template v-if="$q.screen.gt.sm">
-                      <div class="text-center text-uppercase text-h5 color-title-informacion q-pb-md">Información</div>
+                      <div class="text-center text-uppercase text-h5 text-dark q-pb-md">Información</div>
                     </template>
                     <InfoTolanario :cardData="cardData" :openDialog="openDialog" />
                   </div>
@@ -305,7 +304,7 @@ async function generateFile(){
                   <div class="container-card full-width row justify-center items-center ">
                     <div class="full-width ">
                       <div class="full-width ">
-                        <div class="text-center text-uppercase color-title-acciones text-h5 q-pb-md">Acciones</div>
+                        <div class="text-center text-uppercase text-dark text-h5 q-pb-md">Acciones</div>
                       </div>
                       <OpcionesBtn :buttonData="buttonData" />
                     </div>
@@ -318,10 +317,10 @@ async function generateFile(){
   
                   <div class="row justify-center  col-12 q-mb-sm">
                     <div class="col-5 justify-start flex items-center">
-                      <q-btn class="color-btn-adquirir" v-if="selectedButtons.length > 1" icon="person_add" label="Adquirir" @click="dialogReservarMulti = true" />
+                      <q-btn class="color-btn" v-if="selectedButtons.length > 1" icon="person_add" label="Adquirir" @click="dialogReservarMulti = true" />
                     </div>
                     <div class="col-5 justify-end flex items-center">
-                      <div class=" q-pr-md q-pl-sm q-py-none rounded-borders" style="background-color: #eef6ff;">
+                      <div class=" q-pr-md q-pl-sm q-py-none color-fondo rounded-borders">
                         <q-checkbox size="lg"  keep-color color="purple-7" v-model="multiSelect" label="Selección múltiple" @click="multiSelect === false ? selectedButtons = [] : ''" />
                       </div>
                     </div>
@@ -339,7 +338,7 @@ async function generateFile(){
                   <template v-if="$q.screen.gt.sm">
                     <div class="full-width ">
                       <div class="full-width">
-                        <div class="text-center text-uppercase text-h5 color-title-acciones q-pb-sm">Acciones</div>
+                        <div class="text-center text-uppercase text-h5 text-dark q-pb-sm">Acciones</div>
                       </div>
                 
                       <OpcionesBtn :buttonData="buttonData" />
@@ -402,44 +401,53 @@ async function generateFile(){
 
 .container-card{
   height: auto;
- /*  background-color: rgba(182, 182, 182, 0.329); */
- 
+  /*  background-color: rgba(182, 182, 182, 0.329); */
+  
   border-radius: 20px;
   justify-content: center;
   align-items: center;
   padding: 20px 0 20px 0;
 }
 
-/* .bg-card {
-  background-color: v-bind("actualColor.test")
-} */
 
-.color-title-informacion{
-  color: v-bind("actualColor.color_title_talonario.color1")
+.color-fondo {
+  background-color: v-bind("actualColor.color_fondo")
+  /* background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(213, 248, 255, 1) 100%); */
 }
 
-.color-title-acciones{
-  color: v-bind("actualColor.color_title_talonario.color2")
+.color-title{
+  color: v-bind("actualColor.color_title_talonario")
 }
 
 .color-header{
   background-color: v-bind("actualColor.color_fondo_header");
-  color: #fff;
 }
 
-.color-btn-adquirir{
-  background-color: v-bind("actualColor.btn_adquirir")
+.color-btn{
+  background-color: v-bind("actualColor.color_btn")
 }
 
-.bg-card{
+.color-balota{
+  background: v-bind("actualColor.color_balota.normal");
+}
+
+.color-balota-select{
+  background: v-bind("actualColor.color_balota.select")
+}
+
+.color-balota-pagada{
+  background: v-bind("actualColor.color_balota.pagada")
+}
+
+.color-balota-apartada{
+  background: v-bind("actualColor.color_balota.apartada")
+}
+
+/* .bg-card{
   background-color: v-bind("actualColor.color_card")
-}
+} */
 
-.color-fondo {
-  background: rgb(255, 255, 255);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(213, 248, 255, 1) 100%);
-  /* background-color: v-bind("actualColor.color_fondo") */
-}
 
 .infoText {
   align-items: center;
