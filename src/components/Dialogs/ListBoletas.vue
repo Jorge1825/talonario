@@ -3,6 +3,7 @@ import { ref, defineProps } from "vue";
 
 const props = defineProps({
   dataBoletas: Array,
+  actualColor: Object,
 });
 
 const pagination = ref({
@@ -97,7 +98,7 @@ const columns = [
     <q-separator />
 
     <q-card-actions align="center" >
-      <q-btn v-close-popup rounded  color="primary" label="Cerrar" />
+      <q-btn v-close-popup class="colorBtn" label="Cerrar" />
     </q-card-actions>
   </q-card>
 </template>
@@ -107,9 +108,19 @@ const columns = [
 .q-table__top,
   thead tr:first-child th{
     /* bg color is important for th; just specify one */
-    background-color: #1976D2;
-    color: rgb(255, 255, 255);
+    background-color: v-bind("actualColor.color_fondo_header") !important;
+    color: v-bind("actualColor.color_title_talonario") !important;
   }
+
+  .colorBtn{
+    color: v-bind("actualColor.color_title_talonario") ;
+    background-color: v-bind("actualColor.color_fondo_header") ;
+  }
+
+
+.q-table__grid-item-card{
+  box-shadow: 0px 0px 10px 0px rgb(136, 136, 136);
+}
 
 
 </style>

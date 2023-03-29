@@ -8,12 +8,14 @@ import DialogEstadisticas from './Dialogs/DialogEstadisticas.vue'
 
 const props = defineProps({
     buttonData: Array,
+    configTalonario : Object,
+    actualColor: Object,
 })
 const $q = useQuasar()
 
-const showStadistics = ref(false)
 
-const prueba = '#ffffff'
+
+const showStadistics = ref(false)
 
 function share () {
       $q.bottomSheet({
@@ -59,11 +61,11 @@ function share () {
           }
         ]
       }).onOk(action => {
-        // console.log('Action chosen:', action.id)
+        
       }).onCancel(() => {
-        // console.log('Dismissed')
+        
       }).onDismiss(() => {
-        // console.log('I am triggered on both OK and Cancel')
+        
       })
     }
 
@@ -94,7 +96,7 @@ function share () {
                             </div>
                           </q-btn>
                         </template>
-                        <div class="row flex q-my-xs full-width justify-center flex q-mt-md">
+                        <div class="row flex q-my-xs full-width justify-center flex ">
                           <div class="col-5 col-lg-4 justify-center flex">
                             <q-btn round color="deep-purple-9" icon="query_stats" size="20px"  @click="showStadistics = true"/>
                 
@@ -111,8 +113,8 @@ function share () {
                 </q-card>
 
 
-      <q-dialog v-model="showStadistics">
-        <DialogEstadisticas />
+      <q-dialog v-model="showStadistics" >
+        <DialogEstadisticas :actualColor="actualColor" :configTalonario="props.configTalonario"/>
       </q-dialog> 
 </template>
 

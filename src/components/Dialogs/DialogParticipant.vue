@@ -5,6 +5,7 @@ import {ref,defineProps, onMounted} from 'vue'
 
     const props = defineProps({
       boletaSelect: Array,
+      actualColor: Object,
     })
 
 //buscar la info de la boleta seleccionada
@@ -104,3 +105,7 @@ onMounted(() => {
      
     </q-card>
 </template>
+
+<style>
+
+</style>

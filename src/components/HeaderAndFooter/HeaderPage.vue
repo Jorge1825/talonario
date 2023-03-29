@@ -12,12 +12,12 @@
 </template>
 
 <style>
-/* .colorHeader{
+ .colorHeader{
     background-color: #004bad;
     color: #fff;
-} */
+} 
 
-/* .retro{
+ .retro{
     background:linear-gradient( #0a2472 0%, #0e6ba8 50%, #a6e1fa 100%);
     color: transparent;
     background-clip: text;
@@ -44,5 +44,5 @@
             filter: drop-shadow(5px 5px 10px rgb(0, 0, 0));
             -webkit-filter: drop-shadow(5px 5px 10px rgb(0, 0, 0));
         }
-    } */
+    } 
 </style> 

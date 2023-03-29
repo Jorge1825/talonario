@@ -1,6 +1,12 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref,defineProps } from "vue";
 import { dataBoletas } from "../temp/data.js";
+
+
+const props=defineProps({
+  configTalonario:Object
+})
+
 
 const columns = [
   {
@@ -59,7 +65,7 @@ const columns = [
     label: "TOTAL PAGADO",
     field: (row) => {
       return (
-        row.boletas.filter((boleta) => boleta.estado === "0").length * 10000
+        row.boletas.filter((boleta) => boleta.estado === "0").length * props.configTalonario.valorBoleta
       );
     },
     classes: "q-pa-none q-ma-none",
@@ -71,7 +77,7 @@ const columns = [
     label: "DEUDA",
     field: (row) => {
       return (
-        row.boletas.filter((boleta) => boleta.estado === "1").length * 10000
+        row.boletas.filter((boleta) => boleta.estado === "1").length * props.configTalonario.valorBoleta
       );
     },
     classes: "q-pa-none q-ma-none",
@@ -86,7 +92,7 @@ const totalPagadas = computed(() => {
     return accumulator + current.filter((item) => item.estado === "0").length;
   }, 0);
 
-  return numBoletas * 10000;
+  return numBoletas * props.configTalonario.valorBoleta;
 });
 
 
@@ -97,7 +103,7 @@ const totalNoPagadas = computed(() => {
     return accumulator + current.filter((item) => item.estado === "1").length;
   }, 0);
 
-  return numBoletas * 10000;
+  return numBoletas * props.configTalonario.valorBoleta;
 });
 
 
@@ -118,15 +124,15 @@ const totalNoPagadas = computed(() => {
         <div class="row text-subtitle2">
           <div class="col-6 justify-center flex">
             <div class="row">
-              <div class="col-12">Fecha del sorteo :</div>
-              <div class="col-12">Loteria :</div>
+              <div class="col-12">Fecha del sorteo : {{ configTalonario.fechaSorteo }} </div>
+              <div class="col-12">Loteria : {{ configTalonario.loteria }}</div>
              
           </div>
         </div>
         <div class="col-6 justify-center flex">
             <div class="row">
-              <div class="col-12">Ganador :</div>
-              <div class="col-12">Premio :</div>
+              <div class="col-12">Ganador : {{ configTalonario.boletaGanadora || '?'}} </div>
+              <div class="col-12">Premio : {{ configTalonario.premio }}</div>
              
           </div>
         </div>

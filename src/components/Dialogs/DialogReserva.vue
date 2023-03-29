@@ -3,10 +3,9 @@
 import { ref, computed, defineProps } from 'vue'
 import { useQuasar } from 'quasar';
 
+
 import DialogAdquirir from './DialogAdquirir.vue'
 import DialogParticipante from './DialogParticipant.vue';
-
-import {dataBoletas} from '../../temp/data.js'
 
 
 const $q = useQuasar()
@@ -19,6 +18,7 @@ const props = defineProps({
   dataBoletas: Array,
   boletaSelect:Array,
   reserveBoleta: Function,
+  actualColor: Object,
 })
 
 
@@ -93,9 +93,15 @@ const props = defineProps({
     <q-card-section class="row items-center ">
       <div class="col-12 text-Boleta text-center">Boleta {{boletaSelect[0]}}</div>
       <div class="col-12 justify-center flex items-center">
-        <span class="text-subtitle2">Estado:  {{ boletaExist === '1' ? 'Pagada' :boletaExist === '0' ? 'Reservada' : 'Disponible' }}</span>
+        <span class="text-subtitle2"
+       
+        >Estado:  {{ boletaExist === '1' ? 'Pagada' :boletaExist === '0' ? 'Reservada' : 'Disponible' }}</span>
 
-        <q-btn class="q-ml-md" round color="primary" size="xs" />
+        <q-btn 
+        class="q-ml-md" 
+        round 
+        :class="boletaExist === '1' ? 'color-paga' :boletaExist === '0' ? 'color-reservada' : 'color-disponible'"
+         size="xs" />
       </div>
       <div class="col-12 q-mt-md">
         <q-separator />
@@ -143,11 +149,11 @@ const props = defineProps({
 
   <!--  Dialogo para adquirir boleta -->
   <q-dialog v-model="showAdquirir" >
-    <DialogAdquirir :boletaSelect="boletaSelect" :reserveBoleta="addBoleta" />
+    <DialogAdquirir :actualColor="actualColor" :boletaSelect="boletaSelect" :reserveBoleta="addBoleta" />
     </q-dialog>
 
    <q-dialog v-model="showParticipante" >
-    <DialogParticipante :boletaSelect="boletaSelect" />
+    <DialogParticipante :actualColor="actualColor" :boletaSelect="boletaSelect" />
     </q-dialog>
 
 
@@ -157,4 +163,19 @@ const props = defineProps({
   font-size: 20px;
   font-weight: bold;
 }
+
+.color-paga{
+
+  background-color: v-bind("actualColor.color_balota.pagada");
+
+}
+.color-reservada{
+  background-color: v-bind("actualColor.color_balota.apartada");
+}
+
+.color-disponible{
+  background-color: v-bind("actualColor.color_balota.normal");
+
+}
+
 </style>

@@ -28,7 +28,7 @@ const objectData =ref([
 ]);
 
 const resetColor = () => {
-  console.log(objectData.value);
+
   objectData.value[0].item = props.colorDefault.color_fondo;
   objectData.value[1].item = props.colorDefault.color_fondo_header;
   objectData.value[2].item = props.colorDefault.color_btn;
@@ -40,11 +40,11 @@ const resetColor = () => {
   objectData.value[8].item = props.colorDefault.color_balota.normal
   // objectData.value[8].item = props.colorDefault.color_balota.ganadora;
 
-  console.log('colores por defecto');
+
 };
 
 const guardarColor = () => {
-  console.log(objectData.value);
+
   const data = ref({
     color_fondo: objectData.value[0].item,
     color_fondo_header: objectData.value[1].item,
@@ -72,7 +72,7 @@ const guardarColor = () => {
   <q-card class="my-card" style="width: 700px; max-width: 80vw;">
     <q-card-section class="q-ma-none q-pa-none">
       <div class="row no-wrap items-center">
-        <div class="col text-h6 ellipsis text-center color-header color-title text-uppercase q-py-sm full-width">
+        <div class="col text-h6 ellipsis text-center colorHeader text-uppercase q-py-sm full-width">
           <strong>Paleta de colores</strong>
           <!-- <q-separator /> -->
         </div>
@@ -114,10 +114,22 @@ const guardarColor = () => {
       <q-separator />
 
       <q-card-actions class="justify-center flex">
-        <q-btn v-close-popup class="color_btn" label="Guardar" type="submit" @click="guardarColor" />
+        <q-btn v-close-popup class="colorBtn text-white" label="Guardar" type="submit" @click="guardarColor" />
       </q-card-actions>
 
     </q-form>
 </q-card>
 
 </template>
+
+<style>
+  .colorHeader{
+    background-color: v-bind("actualColor.color_fondo_header");
+    color: v-bind("actualColor.color_title_talonario")
+  }
+
+  .colorBtn{
+    color: v-bind("actualColor.color_title_talonario") ;
+    background-color: v-bind("actualColor.color_fondo_header") !important;
+  }
+</style>

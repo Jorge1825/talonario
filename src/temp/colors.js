@@ -9,6 +9,8 @@ export const colorDefault = ref({
     color_title_talonario: '#ffffff',
     
     color_card: '#ffffff',
+
+    test:'black',
     
     color_balota:{
       pagada: '#379eff',

@@ -1,14 +1,13 @@
 <script setup>
 
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onBeforeMount } from 'vue'
 import { format, useQuasar } from 'quasar'
 import html2pdf from 'html2pdf.js'
 
 //data
 import {dataBoletas} from '../src/temp/data.js'
-import {cardData} from '../src/temp/data.js'
 import { colorDefault } from './temp/colors'
-import {configTalonario} from '../src/temp/data.js'
+
 
 //importar componenetes 
 import HeaderPage from './components/HeaderAndFooter/HeaderPage.vue'
@@ -20,10 +19,93 @@ import DialogColor from './components/Dialogs/DialogColorPicker.vue'
 import DialogEdit from './components/Dialogs/DialogEdit.vue'
 import DialogReservarBoleta from './components/Dialogs/DialogReserva.vue'
 import DialogAdquirir from './components/Dialogs/DialogAdquirir.vue'
+import DialogConfig from './components/Dialogs/DialogConfigInitial.vue'
 import ListarBoletas from './components/Dialogs/ListBoletas.vue'
 import ExportData from './components/ExportData.vue'
 
 const $q = useQuasar()
+
+const fecha = new Date().toISOString().slice(0, 10)
+    //reemplazar los - por /
+    const fechaFormateada = fecha.replace(/-/g, "/")
+
+const configTalonario = ref({
+  balotas: 0,
+  premio: "0",
+  valorBoleta: 0,
+  loteria: '?',
+  fechaSorteo: fechaFormateada,
+  boletaGanadora: null,
+})
+
+const showDialogConfig = ref(false)
+
+//mostrar el dialogo de editar antes de montar el componente
+onBeforeMount(() => {
+  showDialogConfig.value = true
+
+
+})
+
+const saveConfig = (data) =>{
+  console.log(data)
+  //numBoletas = '0 - 99'
+
+  const numberoletas = parseInt(data.numBoletas.split('-')[1])
+  console.log(numberoletas)
+
+
+  configTalonario.value = {
+    balotas: numberoletas,
+    premio: data.premio,
+    valorBoleta: data.valorBoleta,
+    loteria: data.loteria,
+    fechaSorteo: data.fecha,
+    boletaGanadora: null,
+  }
+
+  console.log(configTalonario.value)
+ 
+  cardData.value[0].value = data.premio
+  cardData.value[1].value = data.valorBoleta
+  cardData.value[2].value = data.loteria
+  cardData.value[3].value = data.fecha
+
+showDialogConfig.value = false
+
+
+}
+
+
+const cardData = ref([
+  {
+    label: 'Premio',
+    value: configTalonario.value.premio,
+    icon: "🏆",
+  },
+  {
+    label: 'Valor Boleta',
+    value: configTalonario.value.valorBoleta,
+    icon: "$"
+  },
+  {
+    label: 'Loteria',
+    value: configTalonario.value.loteria,
+    icon: "🏦",
+  },
+  {
+    label: 'Fecha de Sorteo',
+    value: configTalonario.value.fechaSorteo,
+    icon: "🗓️",
+  }
+]
+)
+
+
+
+
+
+
 
 
 //Dialog list boletas
@@ -37,7 +119,7 @@ let buttonData = [
     icon: "las la-filter",
     click: () => {
       listBolestasDialog.value = true
-      console.log('Listar tus boletas')
+
     }
   },
   {
@@ -45,9 +127,7 @@ let buttonData = [
     icon: "las la-magic",
     click: () => {
       displayColorDialog.value = true
-      console.log('Personalizar Talonario Web')
-      //validar si colorUser tiene datos
-      console.log(Object.keys(colorUser.value).length)
+
     }
 
   },
@@ -56,7 +136,7 @@ let buttonData = [
     icon: "las la-download",
     click: () => {
       generateFile()
-      console.log('Generar Archivo De Datos')
+  
     }
   }
 ]
@@ -72,12 +152,19 @@ function openDialog(activar) {
 
 //guardar los datos del dialog editar
 function saveData(data,value){
-  console.log(data)
+
   showDialogEdit.value = value
   cardData.value[0].value = data[0]
   cardData.value[1].value = data[1]
   cardData.value[2].value = data[2]
   cardData.value[3].value = data[3]
+
+  configTalonario.value.premio = data[0]
+  configTalonario.value.valorBoleta = data[1]
+  configTalonario.value.loteria = data[2]
+  configTalonario.value.fechaSorteo = data[3]
+
+
 }
 
 
@@ -85,20 +172,19 @@ function saveData(data,value){
 const displayColorDialog = ref(false)
 
 
-
+const actual = ref(colorDefault.value)
 const actualColor = ref(colorDefault.value)
 
 const colorUser = ref({})
 
 //funcion que guarda el color seleccionados por el usuario
 function saveColor(data){
-  console.log(data)
 
   colorUser.value = data
   actualColor.value = data
   actual.value = data
 
-  console.log(actualColor.value, actual.value)
+
 
   displayColorDialog.value = false
 }
@@ -289,7 +375,7 @@ async function generateFile(){
                 <div class=" container-card full-width row justify-center">
                   <div class="full-width">
                     <template v-if=" $q.screen.lt.md">
-                      <div class="text-center text-uppercase text-h5 text-dark">Información</div>
+                      <div class="text-center text-uppercase text-h5 text-dark q-pb-sm">Información</div>
                     </template>
                     <template v-if="$q.screen.gt.sm">
                       <div class="text-center text-uppercase text-h5 text-dark q-pb-md">Información</div>
@@ -304,9 +390,9 @@ async function generateFile(){
                   <div class="container-card full-width row justify-center items-center ">
                     <div class="full-width ">
                       <div class="full-width ">
-                        <div class="text-center text-uppercase text-dark text-h5 q-pb-md">Acciones</div>
+                        <div class="text-center text-uppercase text-dark text-h5 q-pb-sm">Acciones</div>
                       </div>
-                      <OpcionesBtn :buttonData="buttonData" />
+                      <OpcionesBtn :actualColor="actualColor" :buttonData="buttonData" :configTalonario="configTalonario"/>
                     </div>
                   </div>
                 </div>
@@ -317,7 +403,7 @@ async function generateFile(){
   
                   <div class="row justify-center  col-12 q-mb-sm">
                     <div class="col-5 justify-start flex items-center">
-                      <q-btn class="color-btn" v-if="selectedButtons.length > 1" icon="person_add" label="Adquirir" @click="dialogReservarMulti = true" />
+                      <q-btn class="color-btn text-white" v-if="selectedButtons.length > 1" icon="person_add" label="Adquirir" @click="dialogReservarMulti = true" />
                     </div>
                     <div class="col-5 justify-end flex items-center">
                       <div class=" q-pr-md q-pl-sm q-py-none color-fondo rounded-borders">
@@ -341,7 +427,7 @@ async function generateFile(){
                         <div class="text-center text-uppercase text-h5 text-dark q-pb-sm">Acciones</div>
                       </div>
                 
-                      <OpcionesBtn :buttonData="buttonData" />
+                      <OpcionesBtn :actualColor="actualColor" :buttonData="buttonData" :configTalonario="configTalonario"/>
                     </div>
                   </template>
                 </div>
@@ -358,13 +444,13 @@ async function generateFile(){
 
       <!-- Editar info del talonario -->
       <q-dialog v-model="showDialogEdit">
-        <DialogEdit :cardData="cardData" :saveData="saveData" />  
+        <DialogEdit :actualColor="actualColor" :cardData="cardData" :saveData="saveData" />  
       </q-dialog>
 
  
       <!-- Listar las boletas -->
       <q-dialog v-model="listBolestasDialog">
-          <ListarBoletas :dataBoletas="dataBoletas" />
+          <ListarBoletas  :actualColor="actualColor" :dataBoletas="dataBoletas" />
       </q-dialog>
 
 
@@ -376,18 +462,23 @@ async function generateFile(){
 
       <!-- Dialogo para reservar boletas -->
       <q-dialog v-model="dialogReservar" position="bottom">
-          <DialogReservarBoleta v-if="!multiSelect" :dataBoletas="dataBoletas"  :boletaSelect="selectedButtons" :reserveBoleta="reserveBoleta" />
+          <DialogReservarBoleta v-if="!multiSelect" :dataBoletas="dataBoletas"  :boletaSelect="selectedButtons" :reserveBoleta="reserveBoleta"  :actualColor="actualColor" />
       </q-dialog>
 
       <!-- Dialogo para multples boletas -->
       <q-dialog v-model="dialogReservarMulti" position="standard">
-          <DialogAdquirir v-if="multiSelect"  :boletaSelect="selectedButtons" :reserveBoleta="reserveBoleta" />
+          <DialogAdquirir v-if="multiSelect" :actualColor="actualColor" :boletaSelect="selectedButtons" :reserveBoleta="reserveBoleta" />
+      </q-dialog>
+
+      <!-- Dialogo de configuración inicial -->
+      <q-dialog v-model="showDialogConfig" persistent>
+        <DialogConfig :actualColor="actualColor" :saveConfig="saveConfig" />
       </q-dialog>
 
 
       <!-- Exportar el archivo -->
       <div hidden>
-        <ExportData id="exportFile"/>
+        <ExportData id="exportFile" :configTalonario="configTalonario" />
       </div>
 
       <FooterPage />
@@ -401,7 +492,7 @@ async function generateFile(){
 
 .container-card{
   height: auto;
-  /*  background-color: rgba(182, 182, 182, 0.329); */
+  background-color: rgba(182, 182, 182, 0.329); 
   
   border-radius: 20px;
   justify-content: center;
@@ -411,9 +502,9 @@ async function generateFile(){
 
 
 .color-fondo {
-  background-color: v-bind("actualColor.color_fondo")
-  /* background: rgb(255, 255, 255);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(213, 248, 255, 1) 100%); */
+
+  background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, v-bind("actualColor.color_fondo") 100%);
 }
 
 .color-title{
@@ -425,7 +516,7 @@ async function generateFile(){
 }
 
 .color-btn{
-  background-color: v-bind("actualColor.color_btn")
+  background-color: v-bind("actualColor.color_btn");
 }
 
 .color-balota{
