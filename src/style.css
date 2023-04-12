@@ -1,7 +1,55 @@
-/* importar Open Sans */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,800');
-body
-{
-	
-	font-family: 'Open Sans', sans-serif !important;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    /* ===== Colors ===== */
+    --body-color: #E4E9F7;
+    --sidebar-color: #FFF;
+    --primary-color: #0d0d0e;
+    --primary-color-light: #F6F5FF;
+    --toggle-color: #DDD;
+    --text-color: #707070;
+    --text-color-light: #fff;
+    --nav-color: #1b1b1b;
+    --nav-color-text: #fff;
+    --hover-color: #003a85;
+
+    /* ====== Transition ====== */
+    --tran-03: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.3s ease;
+    --tran-05: all 0.3s ease;
+}
+
+body{
+    min-height: 100vh;
+    background-color: var(--body-color);
+    transition: var(--tran-05);
+}
+
+::selection{
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+body.dark{
+    --body-color: #18191a;
+    --sidebar-color: #242526;
+    --primary-color: #3a3b3c;
+    --primary-color-light: #3a3b3c;
+    --toggle-color: #fff;
+    --text-color: #ccc;
+    --nav-color: #ffffff;
+    --nav-color-text: #000;
+    --hover-color: #3a3b3c;
+}
+
+
+.color-text{
+    color: var(--nav-color);
 }
